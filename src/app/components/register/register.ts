@@ -11,7 +11,7 @@ import { inject } from '@angular/core';
   styleUrl: './register.css'
 })
 export class RegisterComponent {
-  registerForm: FormGroup;
+  // registerForm: FormGroup;
   showPassword = false;
   showConfirmPassword = false;
   errorMessage = '';
@@ -19,6 +19,7 @@ export class RegisterComponent {
   private fb: FormBuilder = inject(FormBuilder);
   private router: Router = inject(Router);
 
+  /*
   constructor() {
     this.registerForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
@@ -28,6 +29,7 @@ export class RegisterComponent {
       confirmPassword: ['', [Validators.required]]
     }, { validators: this.passwordMatchValidator });
   }
+  */
 
   passwordMatchValidator(form: FormGroup) {
     const password = form.get('password');

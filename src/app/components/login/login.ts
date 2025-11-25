@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,18 +10,16 @@ import { Router } from '@angular/router';
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   showPassword = false;
   errorMessage = '';
   isLoading = false;
+  private servicioAuth: AuthService = inject(AuthService)
+  private fb: FormBuilder = inject(FormBuilder);
+  private router: Router = inject(Router);
 
-  constructor(
-    private fb: FormBuilder,
-    private router: Router,
-    // Inyecta aquí tu servicio de autenticación
-    // private authService: AuthService
-  ) {
+  public ngOnInit(){
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
@@ -38,43 +37,44 @@ export class LoginComponent {
 
       const { email, password } = this.loginForm.value;
 
-      // Espacio para llamar al servicio de autenticación
-      // this.authService.ingresarUsuario(email, password).subscribe({
-      //   next: (response) => {
-      //     console.log('Login exitoso', response);
-      //     this.router.navigate(['/dashboard']);
-      //   },
-      //   error: (error) => {
-      //     this.errorMessage = 'Credenciales inválidas. Por favor intenta de nuevo.';
-      //     this.isLoading = false;
-      //   },
-      //   complete: () => {
-      //     this.isLoading = false;
-      //   }
-      // });
-
-      
-    } else {
-      this.formGroupVal(this.loginForm);
+      /*
+      this.servicioAuth.ingresarUsuario(email, password).subscribe({
+        next: (response) => {
+           console.log('Login exitoso', response);
+           this.router.navigate(['/home']);
+         },
+         error: (error) => {
+          console.log('Error: ', error);
+           this.errorMessage = 'Credenciales inválidas. Por favor intenta de nuevo.';
+           this.isLoading = false;
+          },
+         complete: () => {
+           this.isLoading = false;
+         }
+        });
+      } else {
+        this.formGroupVal(this.loginForm);
+      }
+      */
     }
   }
 
-  navigateToRegister(): void {
-    this.router.navigate(['/register']);
-  }
+    navigateToRegister(): void {
+      this.router.navigate(['/register']);
+    }
 
-  private formGroupVal(formGroup: FormGroup): void {
-    Object.keys(formGroup.controls).forEach(key => {
-      const control = formGroup.get(key);
-      control?.markAsTouched();
-    });
-  }
+    private formGroupVal(formGroup: FormGroup): void {
+      Object.keys(formGroup.controls).forEach(key => {
+        const control = formGroup.get(key);
+        control?.markAsTouched();
+      });
+    }
 
-  get email() {
-    return this.loginForm.get('email');
-  }
+    get email() {
+      return this.loginForm.get('email');
+    }
 
-  get password() {
-    return this.loginForm.get('password');
-  }
+    get password() {
+      return this.loginForm.get('password');
+    }
 }

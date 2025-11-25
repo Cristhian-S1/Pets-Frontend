@@ -9,13 +9,11 @@ export class AuthService {
   private ruta: string = 'http://localhost:3000/pets';
   private http = inject(HttpClient);
 
-
-
-  public registrarUsuario(){
+  public registrarUsuario(nombreCompleto: string, correo: string, telefono: string, contraseña: string){
 
   }
 
-  public ingresarUsuario(){
+  public ingresarUsuario(correo: any, contraseña: any){
     
   }
 

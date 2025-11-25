@@ -1,0 +1,31 @@
+# Compiled output
+/dist
+/tmp
+/out-tsc
+
+# NPM
+/node_modules
+
+# Angular build cache
+/.angular/cache
+/angular/cache
+
+# IDEs y editores
+.vscode
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Misc
+npm-debug.log
+yarn-error.log
+lerna-debug.log
+.env
+.env.* 

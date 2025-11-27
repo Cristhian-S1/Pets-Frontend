@@ -5,20 +5,20 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service'
 @Component({
   selector: 'app-login',
-  imports: [ CommonModule, ReactiveFormsModule ],
+  imports: [CommonModule, ReactiveFormsModule],
   // Nota: Deberías usar 'template' en lugar de 'templateUrl' si usas Standalone, 
   // pero mantendremos tu estructura actual. Asumiendo 'standalone: true'
-  templateUrl: './login.html', 
+  templateUrl: './login.html',
   styleUrls: ['./login.css'] // Corregido a styleUrls
 })
 export class LoginComponent implements OnInit {
   // Usamos '!' ya que la inicialización puede ocurrir en el constructor o ngOnInit
   // Pero lo moveremos al constructor para mayor seguridad y buenas prácticas.
-  loginForm!: FormGroup; 
+  loginForm!: FormGroup;
   showPassword = false;
   errorMessage = '';
   isLoading = false;
-  
+
   private servicioAuth: AuthService = inject(AuthService);
   private fb: FormBuilder = inject(FormBuilder);
   private router: Router = inject(Router);

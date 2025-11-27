@@ -3,17 +3,17 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 // Importa tu servicio de autenticación
-import { AuthService } from '../../services/auth.service'; 
+import { AuthService } from '../../services/auth.service';
 // No necesitas importar 'response' de express si no estás en un entorno Node/Express en el frontend
 
 @Component({
   selector: 'app-register',
   // Asegúrate de que ReactiveFormsModule esté en imports si no usas Standalone Components
-  imports: [ CommonModule, ReactiveFormsModule ],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './register.html',
   styleUrl: './register.css'
 })
-export class RegisterComponent {  
+export class RegisterComponent {
   // Nota: Eliminé 'loginForm: FormGroup;' duplicado si solo usas 'registerForm'
   registerForm!: FormGroup; // Usamos '!' para asegurar que se inicializa en el constructor
   showPassword = false;
@@ -26,7 +26,7 @@ export class RegisterComponent {  
   private router: Router = inject(Router);
   private authService: AuthService = inject(AuthService); // El servicio de registro
 
-  
+
   constructor() {
     this.registerForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
@@ -36,7 +36,7 @@ export class RegisterComponent {  
       confirmPassword: ['', [Validators.required]]
     }, { validators: this.passwordMatchValidator });
   }
-  
+
   // Función principal para el envío del formulario
   onSubmit(): void {
     // 1. Verificar si el formulario es válido (todas las validaciones pasaron)
@@ -67,7 +67,7 @@ export class RegisterComponent {  
         },
         complete: () => {
           // Se ejecuta siempre después de 'next' o 'error'
-          this.isLoading = false; 
+          this.isLoading = false;
         }
       });
     } else {
@@ -81,7 +81,7 @@ export class RegisterComponent {  
   passwordMatchValidator(form: FormGroup) {
     const password = form.get('password');
     const confirmPassword = form.get('confirmPassword');
-    
+
     // Asegurar que solo se setee el error si ambos campos existen y tienen valores diferentes
     if (password && confirmPassword && password.value !== confirmPassword.value && confirmPassword.value !== '') {
       // Setear el error en el campo 'confirmPassword'

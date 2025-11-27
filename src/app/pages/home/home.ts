@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Etiqueta } from '../../interfaces/etiqueta.interface';
 import { Publicacion } from '../../interfaces/publicacion.interface';
 import { Post } from '../../components/post/post';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { PostsService } from '../../services/posts.service';
+import { TagsService } from '../../services/tags.service';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +18,8 @@ export class Home implements OnInit {
   selectedTags: number[] = [];
   showFilterMenu: boolean = false;
 
+  private postsService = inject(PostsService);
+  private tagsService = inject(TagsService);
   // Datos
   tags: Etiqueta[] = [];
   allPosts: Publicacion[] = [];
@@ -27,69 +31,20 @@ export class Home implements OnInit {
   }
 
   loadTags(): void {
-    this.tags = [
-      { et_id: 1, et_nombre: 'Perro' },
-      { et_id: 2, et_nombre: 'Gato' },
-      { et_id: 3, et_nombre: 'Urgente' },
-      { et_id: 4, et_nombre: 'Herido' },
-      { et_id: 5, et_nombre: 'Cachorro' }
-    ];
+    this.tagsService.getAllTags().subscribe((tags) => {
+      console.log(tags);
+
+      this.tags = tags;
+    });
   }
 
   loadPosts(): void {
-    this.allPosts = [
-      {
-        pu_id: 1,
-        pu_titulo: 'Perrito Golden perdido',
-        pu_descripcion: 'Se perdió en el centro...',
-        pu_image: 'https://cdn.royalcanin-weshare-online.io/UCImMmgBaxEApS7LuQnZ/v2/eukanuba-market-image-puppy-beagle?w=5596&h=2317&rect=574,77,1850,1045&auto=compress,enhance',
-        pu_fecha: new Date(),
-        pu_ubicacion: 'Centro',
-        pu_estado: false,
-        us_id: 1,
-        us_contacto: '12345678',
-        us_nombre_completo: 'Juan Perez',
-        etiquetas: [
-          { et_id: 1, et_nombre: 'Perro' },
-          { et_id: 5, et_nombre: 'Cachorro' }
-        ]
-      },
-      {
-        pu_id: 2,
-        pu_titulo: 'Gato Siamés encontrado',
-        pu_descripcion: 'Encontré este gato...',
-        pu_image: 'https://cdn.royalcanin-weshare-online.io/UCImMmgBaxEApS7LuQnZ/v2/eukanuba-market-image-puppy-beagle?w=5596&h=2317&rect=574,77,1850,1045&auto=compress,enhance',
-        pu_fecha: new Date(),
-        pu_ubicacion: 'Norte',
-        pu_estado: true,
-        us_id: 2,
-        us_contacto: '87654321',
-        us_nombre_completo: 'Maria Gomez',
-        etiquetas: [
-          { et_id: 2, et_nombre: 'Gato' },
-          { et_id: 3, et_nombre: 'Urgente' }
-        ]
-      },
-      {
-        pu_id: 3,
-        pu_titulo: 'Pastor Alemán herido',
-        pu_descripcion: 'Necesita ayuda veterinaria...',
-        pu_image: 'https://cdn.royalcanin-weshare-online.io/UCImMmgBaxEApS7LuQnZ/v2/eukanuba-market-image-puppy-beagle?w=5596&h=2317&rect=574,77,1850,1045&auto=compress,enhance',
-        pu_fecha: new Date(),
-        pu_ubicacion: 'Sur',
-        pu_estado: false,
-        us_id: 3,
-        us_contacto: '11223344',
-        us_nombre_completo: 'Carlos Ruiz',
-        etiquetas: [
-          { et_id: 1, et_nombre: 'Perro' },
-          { et_id: 4, et_nombre: 'Herido' },
-          { et_id: 3, et_nombre: 'Urgente' }
-        ]
-      }
-    ];
+    this.postsService.getAllPosts().subscribe((posts) => {
+      console.log(posts);
 
-    this.posts = [...this.allPosts];
+      this.allPosts = posts;
+      this.posts = [...this.allPosts];
+    });
   }
 
   toggleFilterMenu(): void {
@@ -103,7 +58,7 @@ export class Home implements OnInit {
 
   toggleTag(tagId: number): void {
     if (this.selectedTags.includes(tagId)) {
-      this.selectedTags = this.selectedTags.filter(id => id !== tagId);
+      this.selectedTags = this.selectedTags.filter(et_id => et_id !== tagId);
     } else {
       this.selectedTags.push(tagId);
     }
@@ -111,7 +66,7 @@ export class Home implements OnInit {
   }
 
   removeTag(tagId: number): void {
-    this.selectedTags = this.selectedTags.filter(id => id !== tagId);
+    this.selectedTags = this.selectedTags.filter(et_id => et_id !== tagId);
     this.applyFilters();
   }
 
@@ -121,8 +76,9 @@ export class Home implements OnInit {
     this.applyFilters();
   }
 
-  getTagName(tagId: number): string {
-    return this.tags.find(t => t.et_id === tagId)?.et_nombre || '';
+
+  getTagName(et_id: number): string {
+    return this.tags.find(t => t.et_id === et_id)?.et_nombre || '';
   }
 
   applyFilters(): void {
@@ -137,8 +93,8 @@ export class Home implements OnInit {
 
       if (this.selectedTags.length > 0) {
         if (post.etiquetas && post.etiquetas.length > 0) {
-          const postTagIds = post.etiquetas.map(t => t.et_id);
-          tagsMatch = this.selectedTags.every(tagId => postTagIds.includes(tagId));
+          const postTagIds = post.etiquetas.map(et_id => et_id.et_id);
+          tagsMatch = this.selectedTags.every(et_id => postTagIds.includes(et_id));
 
         } else {
           tagsMatch = false;

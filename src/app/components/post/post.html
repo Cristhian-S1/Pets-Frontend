@@ -46,7 +46,7 @@
             {{ post.pu_descripcion }}
         </p>
 
-        @if (post.etiquetas && post.etiquetas.length > 0) {
+        @if (post.etiquetas) {
         <div class="flex flex-wrap gap-1.5 mb-5">
             @for (tag of post.etiquetas; track tag.et_id) {
             <span

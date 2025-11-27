@@ -11,7 +11,6 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './login.css'
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
   showPassword = false;
   errorMessage = '';
   isLoading = false;
@@ -19,11 +18,13 @@ export class LoginComponent implements OnInit {
   private fb: FormBuilder = inject(FormBuilder);
   private router: Router = inject(Router);
 
+  loginForm: FormGroup = this.fb.group({
+  email: ['', [Validators.required, Validators.email]],
+  password: ['', [Validators.required, Validators.minLength(6)]]
+  });
+
   public ngOnInit(){
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
-    });
+    
   }
 
   togglePasswordVisibility(): void {
@@ -51,30 +52,31 @@ export class LoginComponent implements OnInit {
          complete: () => {
            this.isLoading = false;
          }
-        });
-      } else {
-        this.formGroupVal(this.loginForm);
-      }
+      });
       */
+    } else {
+      this.formGroupVal(this.loginForm);
     }
   }
 
-    navigateToRegister(): void {
-      this.router.navigate(['/register']);
-    }
+  navigateToRegister(): void {
+    this.router.navigate(['/register']);
+  }
 
-    private formGroupVal(formGroup: FormGroup): void {
-      Object.keys(formGroup.controls).forEach(key => {
-        const control = formGroup.get(key);
-        control?.markAsTouched();
-      });
-    }
+  private formGroupVal(formGroup: FormGroup): void {
+    Object.keys(formGroup.controls).forEach(key => {
+      const control = formGroup.get(key);
+      control?.markAsTouched();
+    });
+  }
 
-    get email() {
-      return this.loginForm.get('email');
-    }
+  get email() {
+    return this.loginForm.get('email');
+  }
 
-    get password() {
-      return this.loginForm.get('password');
-    }
+  get password() {
+    return this.loginForm.get('password');
+  }
 }
+
+

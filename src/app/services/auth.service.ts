@@ -13,7 +13,7 @@ export class AuthService {
 
   }
 
-  public ingresarUsuario(correo: any, contraseña: any){
+  public ingresarUsuario(correo: string, contraseña: string){
     
   }
 

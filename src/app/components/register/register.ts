@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { inject } from '@angular/core';
@@ -10,8 +10,7 @@ import { inject } from '@angular/core';
   templateUrl: './register.html',
   styleUrl: './register.css'
 })
-export class RegisterComponent {
-  // registerForm: FormGroup;
+export class RegisterComponent implements OnInit {
   showPassword = false;
   showConfirmPassword = false;
   errorMessage = '';
@@ -19,17 +18,18 @@ export class RegisterComponent {
   private fb: FormBuilder = inject(FormBuilder);
   private router: Router = inject(Router);
 
-  /*
-  constructor() {
-    this.registerForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(3)]],
-      email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required, Validators.pattern(/^[0-9]{9,}$/)]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required]]
-    }, { validators: this.passwordMatchValidator });
+  registerForm: FormGroup = this.fb.group({
+    name: ['', [Validators.required, Validators.minLength(3)]],
+    email: ['', [Validators.required, Validators.email]],
+    phone: ['', [Validators.required, Validators.pattern(/^[0-9]{9,}$/)]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
+    confirmPassword: ['', [Validators.required]]
+  }, { validators: this.passwordMatchValidator });
+  
+  ngOnInit() {
+    
   }
-  */
+  
 
   passwordMatchValidator(form: FormGroup) {
     const password = form.get('password');

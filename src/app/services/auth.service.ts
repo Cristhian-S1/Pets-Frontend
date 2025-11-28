@@ -10,7 +10,7 @@ export class AuthService {
   private http = inject(HttpClient);
 
   public registrarUsuario(nombreCompleto: string, correo: string, telefono: string, contraseña: string){
-
+    
   }
 
   public ingresarUsuario(correo: string, contraseña: string){

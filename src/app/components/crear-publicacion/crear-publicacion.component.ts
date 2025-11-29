@@ -9,6 +9,7 @@ import {
 import { Router } from "@angular/router";
 import { PublicacionService } from "../../services/publicacion.service";
 import { CommonModule } from "@angular/common";
+import { Etiqueta } from "../../models/publicacion.interface";
 
 @Component({
   selector: "app-crear-publicacion",
@@ -25,8 +26,14 @@ export class CrearPublicacionComponent {
   isSubmitting = false;
   errorMessage = "";
   successMessage = "";
-  imagenesAdicionales: string[] = []; // Para almacenar las URLs de imágenes adicionales
-  nuevaImagenUrl: string = ""; // Para el input temporal
+  imagenesAdicionales: string[] = [];
+  nuevaImagenUrl: string = "";
+
+  // ← Añade estas propiedades para etiquetas
+  etiquetas: Etiqueta[] = [];
+  etiquetasSeleccionadas: number[] = [];
+  cargandoEtiquetas = false;
+  errorEtiquetas = "";
 
   constructor() {
     this.publicacionForm = this.fb.group({
@@ -66,11 +73,49 @@ export class CrearPublicacionComponent {
     });
   }
 
+  ngOnInit(): void {
+    this.cargarEtiquetas();
+  }
+
+  cargarEtiquetas(): void {
+    this.cargandoEtiquetas = true;
+    this.errorEtiquetas = "";
+
+    this.publicacionService.obtenerEtiquetas().subscribe({
+      next: (etiquetas) => {
+        this.etiquetas = etiquetas;
+        this.cargandoEtiquetas = false;
+      },
+      error: (error) => {
+        console.error("Error al cargar etiquetas:", error);
+        this.errorEtiquetas = "No se pudieron cargar las etiquetas";
+        this.cargandoEtiquetas = false;
+      },
+    });
+  }
+
+  // MAnejo de etiquetas
+  toggleEtiqueta(etiquetaId: number): void {
+    const index = this.etiquetasSeleccionadas.indexOf(etiquetaId);
+
+    if (index > -1) {
+      // Si ya está seleccionada, la removemos
+      this.etiquetasSeleccionadas.splice(index, 1);
+    } else {
+      // Si no está seleccionada, la agregamos
+      this.etiquetasSeleccionadas.push(etiquetaId);
+    }
+  }
+
+  isEtiquetaSeleccionada(etiquetaId: number): boolean {
+    return this.etiquetasSeleccionadas.includes(etiquetaId);
+  }
+
   navegacionPublicacion() {
     this.router.navigate(["/publicaciones"]);
   }
 
-  // Getters para facilitar el acceso a los controles en el template
+  // Gets para facilitar el acceso a los controles en el template
   get titulo() {
     return this.publicacionForm.get("pu_titulo");
   }
@@ -92,6 +137,10 @@ export class CrearPublicacionComponent {
     const urlPattern = /^https?:\/\/.+\.(jpg|jpeg|png|gif|webp)(\?.*)?$/i;
 
     if (this.nuevaImagenUrl && urlPattern.test(this.nuevaImagenUrl)) {
+      if (this.imagenesAdicionales.length >= 5) {
+        alert("Solo puedes agregar hasta 5 imágenes adicionales");
+        return;
+      }
       this.imagenesAdicionales.push(this.nuevaImagenUrl);
       this.nuevaImagenUrl = "";
     } else {
@@ -131,6 +180,10 @@ export class CrearPublicacionComponent {
       pu_imagenes:
         this.imagenesAdicionales.length > 0
           ? this.imagenesAdicionales
+          : undefined,
+      pu_etiquetas:
+        this.etiquetasSeleccionadas.length > 0
+          ? this.etiquetasSeleccionadas
           : undefined,
     };
 
@@ -172,6 +225,7 @@ export class CrearPublicacionComponent {
     this.publicacionForm.reset();
     this.imagenesAdicionales = [];
     this.nuevaImagenUrl = "";
+    this.etiquetasSeleccionadas = [];
     this.errorMessage = "";
     this.successMessage = "";
   }
@@ -183,5 +237,9 @@ export class CrearPublicacionComponent {
       return url;
     }
     return "https://via.placeholder.com/400x300?text=Vista+Previa";
+  }
+
+  getNombreEtiqueta(etId: number): string {
+    return this.etiquetas.find((e) => e.et_id === etId)?.et_nombre ?? "";
   }
 }

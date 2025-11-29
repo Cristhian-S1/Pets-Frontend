@@ -5,7 +5,7 @@ export interface Publicacion {
   pu_fecha: string;
   pu_estado: boolean;
   pu_ubicacion: string;
-  nombre: string;
+  us_nombre: string;
   us_contacto: number;
 }
 
@@ -15,4 +15,10 @@ export interface CrearPublicacion {
   pu_ubicacion: string;
   pu_imagen: string;
   pu_imagenes?: string[];
+  pu_etiquetas?: number[];
+}
+
+export interface Etiqueta {
+  et_id: number;
+  et_nombre: string;
 }

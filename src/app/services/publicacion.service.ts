@@ -1,6 +1,10 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
-import { Publicacion, CrearPublicacion } from "../models/publicacion.interface";
+import {
+  Publicacion,
+  CrearPublicacion,
+  Etiqueta,
+} from "../models/publicacion.interface";
 import { Respuesta } from "../models/respuesta.interface";
 import { Observable } from "rxjs";
 
@@ -13,7 +17,7 @@ export class PublicacionService {
 
   //Se ha de implementar la logica de sesion, por el momento se simula con un token que se obtiene al utilizar el endpoint de login en el backend
   token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJtYXJpYUBnb21lei5jb20iLCJjb250YWN0byI6OTExMTExMTExLCJpYXQiOjE3NjQ0MzcxNzUsImV4cCI6MTc2NDQ0MDc3NX0.OKhd0JwIQ6j7NhDlUoW0UnwLyxCHomF9zxLjJ-0MDJI";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJtYXJpYUBnb21lei5jb20iLCJjb250YWN0byI6OTExMTExMTExLCJpYXQiOjE3NjQ0NTExNTAsImV4cCI6MTc2NDQ1NDc1MH0.ql3JZWbccE0DIyZzRrAvdy_U22budOaUMqXGkFus14o";
 
   obtenerPublicaciones(): Observable<Respuesta<Publicacion[]>> {
     const rutaEspecifica = `${this.ruta}/publicaciones`;
@@ -30,5 +34,10 @@ export class PublicacionService {
     return this.http.post<Respuesta<any>>(rutaEspecifica, publicacion, {
       headers,
     });
+  }
+
+  obtenerEtiquetas(): Observable<Etiqueta[]> {
+    const rutaEspecifica = `${this.ruta}/tags`;
+    return this.http.get<Etiqueta[]>(rutaEspecifica);
   }
 }

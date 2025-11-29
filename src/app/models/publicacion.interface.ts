@@ -14,4 +14,5 @@ export interface CrearPublicacion {
   pu_descripcion: string;
   pu_ubicacion: string;
   pu_imagen: string;
+  pu_imagenes?: string[];
 }

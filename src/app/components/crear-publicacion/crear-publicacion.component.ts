@@ -1,19 +1,20 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject } from "@angular/core";
 import {
   FormBuilder,
   FormGroup,
+  FormsModule,
   ReactiveFormsModule,
   Validators,
-} from '@angular/forms';
-import { Router } from '@angular/router';
-import { PublicacionService } from '../../services/publicacion.service';
-import { CommonModule } from '@angular/common';
+} from "@angular/forms";
+import { Router } from "@angular/router";
+import { PublicacionService } from "../../services/publicacion.service";
+import { CommonModule } from "@angular/common";
 
 @Component({
-  selector: 'app-crear-publicacion',
-  imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './crear-publicacion.component.html',
-  styleUrl: './crear-publicacion.component.css',
+  selector: "app-crear-publicacion",
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  templateUrl: "./crear-publicacion.component.html",
+  styleUrl: "./crear-publicacion.component.css",
 })
 export class CrearPublicacionComponent {
   private fb = inject(FormBuilder);
@@ -22,13 +23,15 @@ export class CrearPublicacionComponent {
 
   publicacionForm: FormGroup;
   isSubmitting = false;
-  errorMessage = '';
-  successMessage = '';
+  errorMessage = "";
+  successMessage = "";
+  imagenesAdicionales: string[] = []; // Para almacenar las URLs de imágenes adicionales
+  nuevaImagenUrl: string = ""; // Para el input temporal
 
   constructor() {
     this.publicacionForm = this.fb.group({
       pu_titulo: [
-        '',
+        "",
         [
           Validators.required,
           Validators.minLength(5),
@@ -36,7 +39,7 @@ export class CrearPublicacionComponent {
         ],
       ],
       pu_descripcion: [
-        '',
+        "",
         [
           Validators.required,
           Validators.minLength(10),
@@ -44,7 +47,7 @@ export class CrearPublicacionComponent {
         ],
       ],
       pu_ubicacion: [
-        '',
+        "",
         [
           Validators.required,
           Validators.minLength(5),
@@ -52,7 +55,7 @@ export class CrearPublicacionComponent {
         ],
       ],
       pu_imagen: [
-        '',
+        "",
         [
           Validators.required,
           Validators.pattern(
@@ -64,30 +67,51 @@ export class CrearPublicacionComponent {
   }
 
   navegacionPublicacion() {
-    this.router.navigate(['/publicaciones']);
+    this.router.navigate(["/publicaciones"]);
   }
 
   // Getters para facilitar el acceso a los controles en el template
   get titulo() {
-    return this.publicacionForm.get('pu_titulo');
+    return this.publicacionForm.get("pu_titulo");
   }
 
   get descripcion() {
-    return this.publicacionForm.get('pu_descripcion');
+    return this.publicacionForm.get("pu_descripcion");
   }
 
   get ubicacion() {
-    return this.publicacionForm.get('pu_ubicacion');
+    return this.publicacionForm.get("pu_ubicacion");
   }
 
   get imagen() {
-    return this.publicacionForm.get('pu_imagen');
+    return this.publicacionForm.get("pu_imagen");
+  }
+
+  // Métodos para manejar imágenes adicionales
+  agregarImagenAdicional(): void {
+    const urlPattern = /^https?:\/\/.+\.(jpg|jpeg|png|gif|webp)(\?.*)?$/i;
+
+    if (this.nuevaImagenUrl && urlPattern.test(this.nuevaImagenUrl)) {
+      this.imagenesAdicionales.push(this.nuevaImagenUrl);
+      this.nuevaImagenUrl = "";
+    } else {
+      alert("Por favor ingresa una URL válida de imagen");
+    }
+  }
+
+  eliminarImagenAdicional(index: number): void {
+    this.imagenesAdicionales.splice(index, 1);
+  }
+
+  onNuevaImagenChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.nuevaImagenUrl = input.value;
   }
 
   onSubmit(): void {
     // Resetear mensajes
-    this.errorMessage = '';
-    this.successMessage = '';
+    this.errorMessage = "";
+    this.successMessage = "";
 
     // Validar formulario
     if (this.publicacionForm.invalid) {
@@ -104,35 +128,41 @@ export class CrearPublicacionComponent {
       pu_descripcion: this.publicacionForm.value.pu_descripcion,
       pu_ubicacion: this.publicacionForm.value.pu_ubicacion,
       pu_imagen: this.publicacionForm.value.pu_imagen,
+      pu_imagenes:
+        this.imagenesAdicionales.length > 0
+          ? this.imagenesAdicionales
+          : undefined,
     };
+
+    console.log("Datos a enviar:", publicacionData);
 
     this.publicacionService.crearPublicacion(publicacionData).subscribe({
       next: (response) => {
-        console.log('Respuesta del servidor:', response);
+        console.log("Respuesta del servidor:", response);
         this.isSubmitting = false;
 
         if (response.cod === 200 || response.cod === 201) {
-          this.successMessage = '¡Publicación creada exitosamente!';
+          this.successMessage = "¡Publicación creada exitosamente!";
 
           // Redirigir después de 1.5 segundos
           setTimeout(() => {
-            this.router.navigate(['/publicaciones']);
+            this.router.navigate(["/publicaciones"]);
           }, 1500);
         } else {
-          this.errorMessage = response.msj || 'Error al crear la publicación';
+          this.errorMessage = response.msj || "Error al crear la publicación";
         }
       },
       error: (error) => {
-        console.error('Error al crear publicación:', error);
+        console.error("Error al crear publicación:", error);
         this.isSubmitting = false;
 
         if (error.status === 401) {
-          this.errorMessage = 'No autorizado. Por favor verifica tu token.';
+          this.errorMessage = "No autorizado. Por favor verifica tu token.";
         } else if (error.status === 400) {
-          this.errorMessage = 'Datos inválidos. Por favor revisa los campos.';
+          this.errorMessage = "Datos inválidos. Por favor revisa los campos.";
         } else {
           this.errorMessage =
-            'Error al crear la publicación. Intenta nuevamente.';
+            "Error al crear la publicación. Intenta nuevamente.";
         }
       },
     });
@@ -140,16 +170,18 @@ export class CrearPublicacionComponent {
 
   resetForm(): void {
     this.publicacionForm.reset();
-    this.errorMessage = '';
-    this.successMessage = '';
+    this.imagenesAdicionales = [];
+    this.nuevaImagenUrl = "";
+    this.errorMessage = "";
+    this.successMessage = "";
   }
 
   // Método para previsualizar la imagen
   previewImage(): string {
-    const url = this.publicacionForm.get('pu_imagen')?.value;
+    const url = this.publicacionForm.get("pu_imagen")?.value;
     if (url && this.imagen?.valid) {
       return url;
     }
-    return 'https://via.placeholder.com/400x300?text=Vista+Previa';
+    return "https://via.placeholder.com/400x300?text=Vista+Previa";
   }
 }

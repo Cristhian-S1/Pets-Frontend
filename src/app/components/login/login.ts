@@ -44,6 +44,8 @@ export class LoginComponent {
       
       this.servicioAuth.ingresarUsuario(email, password).subscribe({
         next: (response) => {
+          const token = response.datos.token;
+          localStorage.setItem('authToken', token);
           console.log('Login exitoso', response);
           this.router.navigate(['/publicaciones']);
         },

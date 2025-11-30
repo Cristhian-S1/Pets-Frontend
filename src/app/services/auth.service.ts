@@ -6,7 +6,6 @@ import { Observable } from 'rxjs'; // Necesitas importar Observable
   providedIn: 'root'
 })
 export class AuthService {
-  // Reemplaza 'http://localhost:3000/api/auth' con la URL base real de tu backend
   private apiUrl: string = 'http://localhost:3000/pets/auth';
   private http = inject(HttpClient);
 
@@ -26,7 +25,6 @@ export class AuthService {
   }
 
   public ingresarUsuario(correo: string, contraseña: string) {
-    
     const usuario = {
       email: correo,
       password: contraseña

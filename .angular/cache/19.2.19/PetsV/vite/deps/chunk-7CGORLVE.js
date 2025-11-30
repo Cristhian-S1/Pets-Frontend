@@ -3,7 +3,7 @@ import {
   XhrFactory,
   isPlatformServer,
   parseCookieValue
-} from "./chunk-LDOJRJIY.js";
+} from "./chunk-B3WXUB77.js";
 import {
   APP_BOOTSTRAP_LISTENER,
   ApplicationRef,
@@ -50,9 +50,9 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-O3LGEELE.js";
+} from "./chunk-3SFJK64N.js";
 
-// node_modules/@angular/common/fesm2022/module-z3bvLlVg.mjs
+// ../../node_modules/@angular/common/fesm2022/module-z3bvLlVg.mjs
 var HttpHandler = class {
 };
 var HttpBackend = class {
@@ -2234,7 +2234,7 @@ var HttpClientJsonpModule = class _HttpClientJsonpModule {
   }], null, null);
 })();
 
-// node_modules/@angular/common/fesm2022/http.mjs
+// ../../node_modules/@angular/common/fesm2022/http.mjs
 var httpResource = (() => {
   const jsonFn = makeHttpResourceFn("json");
   jsonFn.arrayBuffer = makeHttpResourceFn("arraybuffer");
@@ -2564,4 +2564,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-VK7JEVAO.js.map
+//# sourceMappingURL=chunk-7CGORLVE.js.map

@@ -9,7 +9,7 @@ import {
 import { Router } from "@angular/router";
 import { PublicacionService } from "../../services/publicacion.service";
 import { CommonModule } from "@angular/common";
-import { Etiqueta } from "../../models/publicacion.interface";
+import { Etiqueta } from "../../models/etiqueta.interface";
 
 @Component({
   selector: "app-crear-publicacion",

@@ -21,6 +21,8 @@ export class PublicacionesComponent implements OnInit {
   searchTerm: string = '';
   filterEstado: string = 'todos';
 
+  
+
   ngOnInit(): void {
     this.obtenerPublicaciones();
   }
@@ -44,6 +46,11 @@ export class PublicacionesComponent implements OnInit {
   navegacionCrear() {
     this.router.navigate(['/publicaciones/crear']);
   }
+  navegarDetalle(id: number) {
+  console.log("Haciendo click en detalle con ID:", id);
+  this.router.navigate(['/publicaciones', id]);
+  }
+
   setActiveSection(section: string): void {
     this.activeSection = section;
     // Aquí puedes agregar lógica de navegación o cambiar vistas

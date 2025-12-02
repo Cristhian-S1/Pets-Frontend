@@ -1,0 +1,837 @@
+<div class="min-h-screen bg-gradient-to-br from-orange-50 via-white to-blue-50">
+  <!-- Header Simple -->
+  <header class="bg-white shadow-md">
+    <div class="container mx-auto px-4 py-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+          <div
+            class="bg-gradient-to-br from-orange-400 to-orange-600 p-2 rounded-xl"
+          >
+            <svg
+              class="w-6 h-6 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              ></path>
+            </svg>
+          </div>
+          <div>
+            <h1 class="text-2xl font-bold text-gray-800">PetFinder</h1>
+            <p class="text-xs text-gray-500">Encuentra a tu mejor amigo</p>
+          </div>
+        </div>
+
+        <a
+          (click)="navegacionPublicacion()"
+          class="flex items-center space-x-2 px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition cursor-pointer"
+        >
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10 19l-7-7m0 0l7-7m-7 7h18"
+            ></path>
+          </svg>
+          <span class="font-medium">Volver</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Contenido Principal -->
+  <main class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto">
+      <!-- Título -->
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold text-gray-800 mb-2">
+          Publicar Mascota Perdida
+        </h2>
+        <p class="text-gray-600">
+          Completa la información para ayudar a encontrar a tu mascota
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Formulario -->
+        <div class="bg-white rounded-xl shadow-lg p-6 lg:p-8">
+          <form [formGroup]="publicacionForm" (ngSubmit)="onSubmit()">
+            <!-- Título -->
+            <div class="mb-6">
+              <label
+                for="titulo"
+                class="block text-sm font-semibold text-gray-700 mb-2"
+              >
+                Título de la publicación *
+              </label>
+              <input
+                type="text"
+                id="titulo"
+                formControlName="pu_titulo"
+                placeholder="Ej: Perro Labrador perdido en el parque"
+                [ngClass]="{
+                  'border-red-500 focus:ring-red-500':
+                    titulo?.invalid && titulo?.touched,
+                  'border-gray-300 focus:ring-orange-500': !(
+                    titulo?.invalid && titulo?.touched
+                  )
+                }"
+                class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition"
+              />
+              <div *ngIf="titulo?.invalid && titulo?.touched" class="mt-1">
+                <p
+                  *ngIf="titulo?.errors?.['required']"
+                  class="text-sm text-red-600"
+                >
+                  El título es obligatorio
+                </p>
+                <p
+                  *ngIf="titulo?.errors?.['minlength']"
+                  class="text-sm text-red-600"
+                >
+                  El título debe tener al menos 5 caracteres
+                </p>
+                <p
+                  *ngIf="titulo?.errors?.['maxlength']"
+                  class="text-sm text-red-600"
+                >
+                  El título no puede exceder 100 caracteres
+                </p>
+              </div>
+            </div>
+
+            <!-- Descripción -->
+            <div class="mb-6">
+              <label
+                for="descripcion"
+                class="block text-sm font-semibold text-gray-700 mb-2"
+              >
+                Descripción *
+              </label>
+              <textarea
+                id="descripcion"
+                formControlName="pu_descripcion"
+                rows="4"
+                placeholder="Describe las características de tu mascota, dónde se perdió, etc."
+                [ngClass]="{
+                  'border-red-500 focus:ring-red-500':
+                    descripcion?.invalid && descripcion?.touched,
+                  'border-gray-300 focus:ring-orange-500': !(
+                    descripcion?.invalid && descripcion?.touched
+                  )
+                }"
+                class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition resize-none"
+              ></textarea>
+              <div class="flex justify-between items-start mt-1">
+                <div *ngIf="descripcion?.invalid && descripcion?.touched">
+                  <p
+                    *ngIf="descripcion?.errors?.['required']"
+                    class="text-sm text-red-600"
+                  >
+                    La descripción es obligatoria
+                  </p>
+                  <p
+                    *ngIf="descripcion?.errors?.['minlength']"
+                    class="text-sm text-red-600"
+                  >
+                    La descripción debe tener al menos 10 caracteres
+                  </p>
+                  <p
+                    *ngIf="descripcion?.errors?.['maxlength']"
+                    class="text-sm text-red-600"
+                  >
+                    La descripción no puede exceder 500 caracteres
+                  </p>
+                </div>
+                <p class="text-xs text-gray-500 ml-auto">
+                  {{ descripcion?.value?.length || 0 }}/500
+                </p>
+              </div>
+            </div>
+
+            <!-- Ubicación -->
+            <div class="mb-6">
+              <label
+                for="ubicacion"
+                class="block text-sm font-semibold text-gray-700 mb-2"
+              >
+                Ubicación *
+              </label>
+              <input
+                type="text"
+                id="ubicacion"
+                formControlName="pu_ubicacion"
+                placeholder="Ej: Parque Central, Arica"
+                [ngClass]="{
+                  'border-red-500 focus:ring-red-500':
+                    ubicacion?.invalid && ubicacion?.touched,
+                  'border-gray-300 focus:ring-orange-500': !(
+                    ubicacion?.invalid && ubicacion?.touched
+                  )
+                }"
+                class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition"
+              />
+              <div
+                *ngIf="ubicacion?.invalid && ubicacion?.touched"
+                class="mt-1"
+              >
+                <p
+                  *ngIf="ubicacion?.errors?.['required']"
+                  class="text-sm text-red-600"
+                >
+                  La ubicación es obligatoria
+                </p>
+                <p
+                  *ngIf="ubicacion?.errors?.['minlength']"
+                  class="text-sm text-red-600"
+                >
+                  La ubicación debe tener al menos 5 caracteres
+                </p>
+                <p
+                  *ngIf="ubicacion?.errors?.['maxlength']"
+                  class="text-sm text-red-600"
+                >
+                  La ubicación no puede exceder 200 caracteres
+                </p>
+              </div>
+            </div>
+
+            <!-- URL de Imagen Principal -->
+            <div class="mb-6">
+              <label
+                for="imagen"
+                class="block text-sm font-semibold text-gray-700 mb-2"
+              >
+                URL de la Imagen Principal *
+              </label>
+              <input
+                type="url"
+                id="imagen"
+                formControlName="pu_imagen"
+                placeholder="https://ejemplo.com/imagen.jpg"
+                [ngClass]="{
+                  'border-red-500 focus:ring-red-500':
+                    imagen?.invalid && imagen?.touched,
+                  'border-gray-300 focus:ring-orange-500': !(
+                    imagen?.invalid && imagen?.touched
+                  )
+                }"
+                class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition"
+              />
+              <div *ngIf="imagen?.invalid && imagen?.touched" class="mt-1">
+                <p
+                  *ngIf="imagen?.errors?.['required']"
+                  class="text-sm text-red-600"
+                >
+                  La URL de la imagen es obligatoria
+                </p>
+                <p
+                  *ngIf="imagen?.errors?.['pattern']"
+                  class="text-sm text-red-600"
+                >
+                  Debe ser una URL válida de imagen (jpg, jpeg, png, gif, webp)
+                </p>
+              </div>
+              <p class="text-xs text-gray-500 mt-1">
+                Esta será la imagen principal de tu publicación
+              </p>
+            </div>
+
+            <!-- Imágenes Adicionales -->
+            <div class="mb-6">
+              <label class="block text-sm font-semibold text-gray-700 mb-2">
+                Imágenes Adicionales (Opcional)
+                <span class="text-gray-500 font-normal"
+                  >- Máximo 5 imágenes</span
+                >
+              </label>
+
+              <!-- Input para nueva imagen -->
+              <div class="flex gap-2 mb-3">
+                <input
+                  type="url"
+                  [(ngModel)]="nuevaImagenUrl"
+                  [ngModelOptions]="{ standalone: true }"
+                  placeholder="https://ejemplo.com/imagen-adicional.jpg"
+                  class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition"
+                  (keyup.enter)="agregarImagenAdicional()"
+                />
+                <button
+                  type="button"
+                  (click)="agregarImagenAdicional()"
+                  [disabled]="imagenesAdicionales.length >= 5"
+                  [ngClass]="{
+                    'opacity-50 cursor-not-allowed':
+                      imagenesAdicionales.length >= 5,
+                    'hover:bg-orange-600': imagenesAdicionales.length < 5
+                  }"
+                  class="px-4 py-3 bg-orange-500 text-white rounded-lg transition font-medium whitespace-nowrap flex items-center gap-2"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 4v16m8-8H4"
+                    ></path>
+                  </svg>
+                  <span class="hidden sm:inline">Agregar</span>
+                </button>
+              </div>
+
+              <!-- Lista de imágenes adicionales -->
+              <div *ngIf="imagenesAdicionales.length > 0" class="space-y-2">
+                <p class="text-xs text-gray-600 mb-2 flex items-center gap-2">
+                  <svg
+                    class="w-4 h-4 text-orange-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    ></path>
+                  </svg>
+                  Imágenes agregadas ({{ imagenesAdicionales.length }}/5):
+                </p>
+                <div
+                  *ngFor="let url of imagenesAdicionales; let i = index"
+                  class="flex items-center gap-2 p-3 bg-gray-50 rounded-lg group hover:bg-gray-100 transition"
+                >
+                  <!-- Miniatura -->
+                  <div
+                    class="w-16 h-16 rounded overflow-hidden bg-gray-200 flex-shrink-0 border-2 border-gray-300"
+                  >
+                    <img
+                      [src]="url"
+                      [alt]="'Imagen ' + (i + 1)"
+                      class="w-full h-full object-cover"
+                      (error)="
+                        $any($event.target).src =
+                          'https://via.placeholder.com/64?text=Error'
+                      "
+                    />
+                  </div>
+
+                  <!-- URL truncada -->
+                  <div class="flex-1 min-w-0">
+                    <p class="text-xs font-medium text-gray-500 mb-1">
+                      Imagen {{ i + 1 }}
+                    </p>
+                    <p class="text-sm text-gray-700 truncate" [title]="url">
+                      {{ url }}
+                    </p>
+                  </div>
+
+                  <!-- Botón eliminar -->
+                  <button
+                    type="button"
+                    (click)="eliminarImagenAdicional(i)"
+                    class="p-2 text-red-500 hover:bg-red-50 rounded-lg transition flex-shrink-0"
+                    title="Eliminar imagen"
+                  >
+                    <svg
+                      class="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Mensaje cuando no hay imágenes -->
+              <div
+                *ngIf="imagenesAdicionales.length === 0"
+                class="text-center py-6 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300"
+              >
+                <svg
+                  class="w-12 h-12 mx-auto text-gray-400 mb-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  ></path>
+                </svg>
+                <p class="text-sm text-gray-500">No hay imágenes adicionales</p>
+                <p class="text-xs text-gray-400 mt-1">
+                  Agrega URLs de imágenes para mostrar más fotos
+                </p>
+              </div>
+            </div>
+
+            <!-- ============ SECCIÓN DE ETIQUETAS (NUEVA) ============ -->
+            <div class="mb-6">
+              <label class="block text-sm font-semibold text-gray-700 mb-2">
+                Etiquetas (Opcional)
+                <span class="text-gray-500 font-normal"
+                  >- Selecciona una o varias</span
+                >
+              </label>
+
+              <!-- Loading state -->
+              <div *ngIf="cargandoEtiquetas" class="text-center py-4">
+                <svg
+                  class="animate-spin h-6 w-6 mx-auto text-orange-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    class="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"
+                  ></circle>
+                  <path
+                    class="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+                <p class="text-sm text-gray-500 mt-2">Cargando etiquetas...</p>
+              </div>
+
+              <!-- Error state -->
+              <div
+                *ngIf="errorEtiquetas && !cargandoEtiquetas"
+                class="p-4 bg-red-50 border border-red-200 rounded-lg"
+              >
+                <p class="text-sm text-red-600">{{ errorEtiquetas }}</p>
+                <button
+                  type="button"
+                  (click)="cargarEtiquetas()"
+                  class="mt-2 text-sm text-red-600 hover:text-red-800 underline"
+                >
+                  Reintentar
+                </button>
+              </div>
+
+              <!-- Lista de etiquetas -->
+              <div
+                *ngIf="!cargandoEtiquetas && !errorEtiquetas"
+                class="space-y-3"
+              >
+                <!-- Etiquetas disponibles -->
+                <div *ngIf="etiquetas.length > 0" class="flex flex-wrap gap-2">
+                  <button
+                    *ngFor="let etiqueta of etiquetas"
+                    type="button"
+                    (click)="toggleEtiqueta(etiqueta.et_id)"
+                    [ngClass]="{
+                      'bg-orange-500 text-white border-orange-500':
+                        isEtiquetaSeleccionada(etiqueta.et_id),
+                      'bg-white text-gray-700 border-gray-300 hover:border-orange-400 hover:bg-orange-50':
+                        !isEtiquetaSeleccionada(etiqueta.et_id)
+                    }"
+                    class="px-4 py-2 border-2 rounded-full text-sm font-medium transition-all duration-200 flex items-center gap-2"
+                  >
+                    <svg
+                      *ngIf="isEtiquetaSeleccionada(etiqueta.et_id)"
+                      class="w-4 h-4"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clip-rule="evenodd"
+                      ></path>
+                    </svg>
+                    <svg
+                      *ngIf="!isEtiquetaSeleccionada(etiqueta.et_id)"
+                      class="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+                      ></path>
+                    </svg>
+                    {{ etiqueta.et_nombre }}
+                  </button>
+                </div>
+
+                <!-- Mensaje cuando no hay etiquetas -->
+                <div
+                  *ngIf="etiquetas.length === 0"
+                  class="text-center py-6 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300"
+                >
+                  <svg
+                    class="w-12 h-12 mx-auto text-gray-400 mb-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+                    ></path>
+                  </svg>
+                  <p class="text-sm text-gray-500">
+                    No hay etiquetas disponibles
+                  </p>
+                </div>
+
+                <!-- Contador de etiquetas seleccionadas -->
+                <div
+                  *ngIf="etiquetasSeleccionadas.length > 0"
+                  class="pt-2 border-t"
+                >
+                  <p class="text-xs text-gray-600 flex items-center gap-1">
+                    <svg
+                      class="w-4 h-4 text-orange-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      ></path>
+                    </svg>
+                    {{ etiquetasSeleccionadas.length }} etiqueta{{
+                      etiquetasSeleccionadas.length !== 1 ? "s" : ""
+                    }}
+                    seleccionada{{
+                      etiquetasSeleccionadas.length !== 1 ? "s" : ""
+                    }}
+                  </p>
+                </div>
+              </div>
+
+              <p class="text-xs text-gray-500 mt-2">
+                💡 Las etiquetas ayudan a categorizar tu publicación y facilitan
+                su búsqueda
+              </p>
+            </div>
+            <!-- ============ FIN SECCIÓN DE ETIQUETAS ============ -->
+
+            <!-- Mensajes de error/éxito -->
+            <div
+              *ngIf="errorMessage"
+              class="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg"
+            >
+              <div class="flex items-center">
+                <svg
+                  class="w-5 h-5 text-red-500 mr-2"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <p class="text-red-700 font-medium">{{ errorMessage }}</p>
+              </div>
+            </div>
+
+            <div
+              *ngIf="successMessage"
+              class="mb-4 p-4 bg-green-50 border border-green-200 rounded-lg"
+            >
+              <div class="flex items-center">
+                <svg
+                  class="w-5 h-5 text-green-500 mr-2"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <p class="text-green-700 font-medium">{{ successMessage }}</p>
+              </div>
+            </div>
+
+            <!-- Botones -->
+            <div class="flex flex-col sm:flex-row gap-3">
+              <button
+                type="submit"
+                [disabled]="isSubmitting"
+                [ngClass]="{
+                  'opacity-50 cursor-not-allowed': isSubmitting,
+                  'hover:from-orange-600 hover:to-orange-700': !isSubmitting
+                }"
+                class="flex-1 bg-gradient-to-r from-orange-500 to-orange-600 text-white py-3 rounded-lg transition font-semibold shadow-md flex items-center justify-center"
+              >
+                <svg
+                  *ngIf="isSubmitting"
+                  class="animate-spin h-5 w-5 mr-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    class="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"
+                  ></circle>
+                  <path
+                    class="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+                {{ isSubmitting ? "Publicando..." : "Publicar Mascota" }}
+              </button>
+
+              <button
+                type="button"
+                (click)="resetForm()"
+                [disabled]="isSubmitting"
+                class="px-6 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition font-semibold disabled:opacity-50"
+              >
+                Limpiar
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Vista Previa -->
+        <div
+          class="bg-white rounded-xl shadow-lg p-6 lg:sticky lg:top-24 h-fit"
+        >
+          <h3
+            class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2"
+          >
+            <svg
+              class="w-5 h-5 text-orange-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+              ></path>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+              ></path>
+            </svg>
+            Vista Previa
+          </h3>
+
+          <div
+            class="bg-white rounded-lg border-2 border-gray-200 overflow-hidden"
+          >
+            <!-- Imagen Preview Principal -->
+            <div class="relative h-48 bg-gray-100">
+              <img
+                [src]="previewImage()"
+                [alt]="titulo?.value || 'Vista previa'"
+                class="w-full h-full object-cover"
+                (error)="
+                  $any($event.target).src =
+                    'https://via.placeholder.com/400x300?text=URL+Inválida'
+                "
+              />
+              <div class="absolute top-3 right-3">
+                <span
+                  class="px-3 py-1 rounded-full text-xs font-semibold bg-red-500 text-white shadow-lg"
+                >
+                  PERDIDO
+                </span>
+              </div>
+            </div>
+            <!-- Contenido Preview -->
+            <div class="p-4">
+              <h4 class="text-lg font-bold text-gray-800 mb-2">
+                {{ titulo?.value || "Título de tu publicación" }}
+              </h4>
+
+              <p class="text-gray-600 text-sm mb-3 line-clamp-2">
+                {{
+                  descripcion?.value ||
+                    "La descripción de tu mascota aparecerá aquí..."
+                }}
+              </p>
+
+              <div class="space-y-2 mb-3">
+                <div class="flex items-center text-gray-600 text-sm">
+                  <svg
+                    class="w-4 h-4 mr-2 text-orange-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                    ></path>
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                    ></path>
+                  </svg>
+                  <span>{{ ubicacion?.value || "Ubicación" }}</span>
+                </div>
+
+                <div class="flex items-center text-gray-600 text-sm">
+                  <svg
+                    class="w-4 h-4 mr-2 text-orange-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    ></path>
+                  </svg>
+                  <span>{{ "Hoy" }}</span>
+                </div>
+              </div>
+
+              <!-- Imágenes adicionales en preview -->
+              <div
+                *ngIf="imagenesAdicionales.length > 0"
+                class="mt-4 pt-4 border-t"
+              >
+                <p
+                  class="text-xs font-semibold text-gray-700 mb-2 flex items-center gap-1"
+                >
+                  <svg
+                    class="w-4 h-4 text-orange-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    ></path>
+                  </svg>
+                  Imágenes adicionales ({{ imagenesAdicionales.length }})
+                </p>
+                <div class="grid grid-cols-3 gap-2">
+                  <div
+                    *ngFor="let url of imagenesAdicionales"
+                    class="aspect-square rounded-lg overflow-hidden bg-gray-100 border-2 border-gray-200"
+                  >
+                    <img
+                      [src]="url"
+                      alt="Imagen adicional"
+                      class="w-full h-full object-cover hover:scale-110 transition-transform duration-200 cursor-pointer"
+                      (error)="
+                        $any($event.target).src =
+                          'https://via.placeholder.com/100?text=Error'
+                      "
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- ============ ETIQUETAS EN PREVIEW (NUEVO) ============ -->
+              <div
+                *ngIf="etiquetasSeleccionadas.length > 0"
+                class="mt-4 pt-4 border-t"
+              >
+                <p
+                  class="text-xs font-semibold text-gray-700 mb-2 flex items-center gap-1"
+                >
+                  <svg
+                    class="w-4 h-4 text-orange-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+                    ></path>
+                  </svg>
+                  Etiquetas ({{ etiquetasSeleccionadas.length }})
+                </p>
+                <div class="flex flex-wrap gap-1">
+                  <span
+                    *ngFor="let etId of etiquetasSeleccionadas"
+                    class="px-2 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-medium"
+                  >
+                    {{ getNombreEtiqueta(etId) }}
+                  </span>
+                </div>
+              </div>
+              <!-- ============ FIN ETIQUETAS EN PREVIEW ============ -->
+
+              <button
+                class="w-full mt-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white py-2 rounded-lg font-medium hover:from-orange-600 hover:to-orange-700 transition"
+              >
+                Contactar por WhatsApp
+              </button>
+            </div>
+          </div>
+
+          <div class="mt-4 p-3 bg-orange-50 rounded-lg">
+            <p class="text-sm text-orange-800">
+              <strong>💡 Consejo:</strong> Asegúrate de usar imágenes claras de
+              tu mascota desde diferentes ángulos para aumentar las
+              posibilidades de ser reconocida.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

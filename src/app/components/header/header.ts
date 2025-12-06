@@ -27,7 +27,7 @@ export class Header implements OnInit {
     this.router.navigate(["/usuario/perfil"]);
   }
   viewPosts() {
-    this.router.navigate(["/publicaciones"]);
+    this.router.navigate(["/usuario/mis-publicaciones"]);
   }
 
   createPost() {

@@ -3,7 +3,7 @@
         <div class="flex items-center justify-between">
 
             <!-- Logo y título (Click lleva al home) -->
-            <div class="flex items-center space-x-3 cursor-pointer" routerLink="/">
+            <div class="flex items-center space-x-3 cursor-pointer" routerLink="/home">
                 <div class="bg-gradient-to-br from-orange-400 to-orange-600 p-2 rounded-xl">
                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -36,6 +36,12 @@
                             d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                     <span class="font-medium">Crear Publicación</span>
+                </button>
+                <!-- Ver foros -->
+                 <button (click)="viewForos()" routerLinkActive="bg-orange-100 text-orange-600"
+                    [routerLinkActiveOptions]="{exact: false}"
+                    class="flex items-center space-x-2 px-4 py-2 rounded-lg transition text-gray-600 hover:bg-gray-50 hover:text-orange-600">
+                    <span class="font-medium">Foros</span>
                 </button>
                 <div class="flex items-center gap-3 pl-4 border-l border-gray-200">
                     <button (click)="goProfile()"

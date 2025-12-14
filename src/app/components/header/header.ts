@@ -34,6 +34,10 @@ export class Header implements OnInit {
     this.router.navigate(["/publicaciones/crear"]);
   }
 
+  viewForos(){
+    this.router.navigate(["/foros"]);
+  }
+
   login() {
     this.router.navigate(["/login"]);
   }

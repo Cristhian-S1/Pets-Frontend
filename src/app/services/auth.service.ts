@@ -10,18 +10,21 @@ export class AuthService {
   private http = inject(HttpClient);
 
   public registrarUsuario(
-    nombreCompleto: string,
+    nombre: string,
+    apellido: string,
     correo: string,
     telefono: string,
     contraseña: string
   ): Observable<any> {
     const body = {
-      us_nombre: nombreCompleto,
+      us_nombre: nombre,
+      us_apellido: apellido,
       us_email: correo,
       us_contrasena: contraseña,
       us_contacto: telefono,
     };
-    console.log(nombreCompleto);
+    console.log(nombre);
+    console.log(apellido);
     return this.http.post<any>(`${this.apiUrl}/register`, body);
   }
 

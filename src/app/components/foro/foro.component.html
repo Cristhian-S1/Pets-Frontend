@@ -1,48 +1,669 @@
-<main>
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+<main class="min-h-screen bg-gray-50">
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
     * {
-        font-family: 'Poppins', sans-serif;
+      font-family: "Poppins", sans-serif;
     }
-    </style>
+  </style>
 
-    <h1 class="text-3xl font-semibold text-center mx-auto">Compact Pets</h1>
-    <p class="text-sm text-slate-500 text-center mt-2 max-w-lg mx-auto">Un grupo especializado en rescate de mascotas, ¡Unete a nosotros y salvemos a mas animales!</p>
-
-    <div class="flex items-center gap-6 h-[400px] w-full max-w-5xl mt-10 mx-auto">
-        <div class="relative group flex-grow transition-all w-56 h-[400px] duration-500 hover:w-full">
-            <img class="h-full w-full object-cover object-center"
-                src="https://images.unsplash.com/photo-1543269865-0a740d43b90c?q=80&w=800&h=400&auto=format&fit=crop"
-                alt="image">
-            <div
-                class="absolute inset-0 flex flex-col justify-end p-10 text-white bg-black/50 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                <h1 class="text-3xl">Prompt engineers</h1>
-                <p class="text-sm">Bridging the gap between human intent and machine understanding through expert prompt design.</p>
-
+  <!-- Header del Foro -->
+  <div class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 py-4">
+      <div class="flex items-center justify-between">
+        <!-- Info del foro -->
+        <div class="flex items-center gap-4">
+          <img
+            src="https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=100&h=100&fit=crop"
+            alt="Compact Pets"
+            class="w-16 h-16 rounded-full object-cover border-3 border-orange-300 shadow-md"
+          />
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="text-2xl font-bold text-gray-900">Compact Pets</h1>
+              <span
+                class="inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold text-green-700 bg-green-100 rounded-full"
+              >
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                  <path
+                    fill-rule="evenodd"
+                    d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                Público
+              </span>
             </div>
-        </div>
-        <div class="relative group flex-grow transition-all w-56 h-[400px] duration-500 hover:w-full">
-            <img class="h-full w-full object-cover object-right"
-                src="https://images.unsplash.com/photo-1714976326351-0ecf0244f0fc?q=80&w=800&h=400&auto=format&fit=crop"
-                alt="image">
-            <div
-                class="absolute inset-0 flex flex-col justify-end p-10 text-white bg-black/50 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                <h1 class="text-3xl">Data scientists</h1>
-                <p class="text-sm">Bridging the gap between human intent and machine understanding through expert prompt design.</p>
-
+            <p class="text-sm text-gray-600 mt-1">
+              Rescate y adopción de mascotas
+            </p>
+            <div class="flex items-center gap-4 mt-1 text-xs text-gray-500">
+              <span class="flex items-center gap-1">
+                <svg
+                  class="w-3.5 h-3.5"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"
+                  />
+                </svg>
+                1,234 miembros
+              </span>
+              <span class="flex items-center gap-1">
+                <svg
+                  class="w-3.5 h-3.5"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                342 publicaciones
+              </span>
             </div>
+          </div>
         </div>
-        <div class="relative group flex-grow transition-all w-56 h-[400px] duration-500 hover:w-full">
-            <img class="h-full w-full object-cover object-center"
-                src="https://images.unsplash.com/photo-1736220690062-79e12ca75262?q=80&w=800&h=400&auto=format&fit=crop"
-                alt="image">
-            <div
-                class="absolute inset-0 flex flex-col justify-end p-10 text-white bg-black/50 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                <h1 class="text-3xl">Software engineers</h1>
-                <p class="text-sm">Bridging the gap between human intent and machine understanding through expert prompt design.</p>
 
-            </div>
+        <!-- Botones de acción -->
+        <div class="flex items-center gap-3">
+          <button
+            class="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-2.5 rounded-lg transition shadow-sm hover:shadow-md flex items-center gap-2"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 4v16m8-8H4"
+              />
+            </svg>
+            Nueva publicación
+          </button>
+          <button
+            class="bg-white hover:bg-gray-50 text-gray-700 font-semibold px-6 py-2.5 rounded-lg transition border border-gray-300 flex items-center gap-2"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+              />
+            </svg>
+            Unirse al foro
+          </button>
         </div>
+      </div>
     </div>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="max-w-7xl mx-auto px-4 py-6">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Columna principal - Publicaciones -->
+      <div class="lg:col-span-2 space-y-6">
+        <!-- Filtros y orden -->
+        <div
+          class="bg-white rounded-lg shadow-sm p-4 flex items-center justify-between border border-gray-100"
+        >
+          <div class="flex items-center gap-2">
+            <span class="text-sm font-medium text-gray-700">Ordenar por:</span>
+            <select
+              class="text-sm border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500"
+            >
+              <option>Más recientes</option>
+              <option>Más populares</option>
+              <option>Más comentadas</option>
+            </select>
+          </div>
+          <div class="flex items-center gap-2">
+            <button class="p-2 hover:bg-gray-100 rounded-lg transition">
+              <svg
+                class="w-5 h-5 text-gray-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Publicación 1 -->
+        <div
+          class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden group flex flex-col"
+        >
+          <!-- Imagen -->
+          <div class="relative h-64 overflow-hidden bg-gray-100">
+            <img
+              src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=800&h=600&fit=crop"
+              alt="Schnauzer rescatado"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            ></div>
+          </div>
+
+          <!-- Contenido -->
+          <div class="p-5 flex-1 flex flex-col">
+            <!-- Badge de estado -->
+            <div class="mb-3">
+              <span
+                class="bg-red-100 text-red-700 border-red-200 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border inline-block"
+              >
+                Necesita ayuda
+              </span>
+            </div>
+
+            <!-- Título y fecha -->
+            <div class="flex justify-between items-start mb-2">
+              <h3
+                class="text-lg font-bold text-gray-800 line-clamp-2 capitalize leading-tight"
+              >
+                ¿Cómo ayudar a un perro rescatado con miedo a las personas?
+              </h3>
+              <span
+                class="text-xs text-gray-400 whitespace-nowrap ml-2 mt-1 flex items-center shrink-0"
+              >
+                <i class="far fa-clock mr-1"></i> 14 Dic
+              </span>
+            </div>
+
+            <!-- Ubicación -->
+            <div class="flex items-center text-gray-500 text-sm mb-3">
+              <svg
+                class="w-4 h-4 mr-1 text-red-500 shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                ></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                ></path>
+              </svg>
+              <span class="line-clamp-1">Arica, Chile</span>
+            </div>
+
+            <!-- Descripción -->
+            <p class="text-gray-600 text-sm mb-3 line-clamp-3 flex-1">
+              Hace una semana rescaté a un schnauzer de la calle que estaba en
+              muy malas condiciones. Lo llevé al veterinario y físicamente está
+              mejorando, pero tiene mucho miedo a las personas. ¿Alguien tiene
+              experiencia con casos similares?
+            </p>
+
+            <!-- Etiquetas -->
+            <div class="flex flex-wrap gap-1.5 mb-4">
+              <span
+                class="text-[10px] px-2 py-0.5 bg-slate-50 text-slate-600 rounded-md font-medium border border-slate-200 tracking-wide"
+              >
+                #Rescate
+              </span>
+              <span
+                class="text-[10px] px-2 py-0.5 bg-slate-50 text-slate-600 rounded-md font-medium border border-slate-200 tracking-wide"
+              >
+                #Schnauzer
+              </span>
+              <span
+                class="text-[10px] px-2 py-0.5 bg-slate-50 text-slate-600 rounded-md font-medium border border-slate-200 tracking-wide"
+              >
+                #Comportamiento
+              </span>
+            </div>
+
+            <!-- Stats e interacciones -->
+            <div class="pt-4 border-t border-gray-100">
+              <div
+                class="flex items-center justify-between text-sm text-gray-600 mb-3"
+              >
+                <div class="flex items-center gap-4">
+                  <span class="flex items-center gap-1">
+                    ❤️ <span class="font-medium">47</span>
+                  </span>
+                  <span class="flex items-center gap-1">
+                    <svg
+                      class="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                      />
+                    </svg>
+                    <span class="font-medium">23 comentarios</span>
+                  </span>
+                </div>
+                <span class="flex items-center gap-1">
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                    />
+                  </svg>
+                  <span class="font-medium">156 vistas</span>
+                </span>
+              </div>
+
+              <!-- Usuario -->
+              <div class="flex items-center gap-2 mb-3">
+                <div
+                  class="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-bold text-xs shrink-0"
+                >
+                  M
+                </div>
+                <div class="flex flex-col">
+                  <span class="text-xs text-gray-500">Publicado por:</span>
+                  <span class="text-sm font-medium text-gray-800"
+                    >María González</span
+                  >
+                </div>
+              </div>
+
+              <!-- Botones -->
+              <div class="flex gap-2 w-full">
+                <button
+                  class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors duration-200"
+                >
+                  Ver discusión
+                </button>
+                <button
+                  class="bg-orange-500 hover:bg-orange-600 text-white py-2.5 px-3 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 flex items-center justify-center"
+                  title="Contactar"
+                >
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Publicación 2 -->
+        <div
+          class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden group flex flex-col"
+        >
+          <div class="relative h-64 overflow-hidden bg-gray-100">
+            <img
+              src="https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?w=800&h=600&fit=crop"
+              alt="Perrito encontrado"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            ></div>
+          </div>
+
+          <div class="p-5 flex-1 flex flex-col">
+            <div class="mb-3">
+              <span
+                class="bg-green-100 text-green-700 border-green-200 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border inline-block"
+              >
+                Encontrado
+              </span>
+            </div>
+
+            <div class="flex justify-between items-start mb-2">
+              <h3
+                class="text-lg font-bold text-gray-800 line-clamp-2 capitalize leading-tight"
+              >
+                Encontré un Golden Retriever en el parque Lauca
+              </h3>
+              <span
+                class="text-xs text-gray-400 whitespace-nowrap ml-2 mt-1 flex items-center shrink-0"
+              >
+                <i class="far fa-clock mr-1"></i> 13 Dic
+              </span>
+            </div>
+
+            <div class="flex items-center text-gray-500 text-sm mb-3">
+              <svg
+                class="w-4 h-4 mr-1 text-red-500 shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                ></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                ></path>
+              </svg>
+              <span class="line-clamp-1">Parque Lauca, Arica</span>
+            </div>
+
+            <p class="text-gray-600 text-sm mb-3 line-clamp-3 flex-1">
+              Hola! Esta mañana encontré un Golden Retriever macho cerca del
+              parque Lauca. Parece estar bien cuidado, tiene collar pero sin
+              placa de identificación. Está muy dócil y bien alimentado. Si
+              conocen a su dueño, por favor contacten.
+            </p>
+
+            <div class="flex flex-wrap gap-1.5 mb-4">
+              <span
+                class="text-[10px] px-2 py-0.5 bg-slate-50 text-slate-600 rounded-md font-medium border border-slate-200 tracking-wide"
+              >
+                #Encontrado
+              </span>
+              <span
+                class="text-[10px] px-2 py-0.5 bg-slate-50 text-slate-600 rounded-md font-medium border border-slate-200 tracking-wide"
+              >
+                #GoldenRetriever
+              </span>
+              <span
+                class="text-[10px] px-2 py-0.5 bg-slate-50 text-slate-600 rounded-md font-medium border border-slate-200 tracking-wide"
+              >
+                #ParqueLauca
+              </span>
+            </div>
+
+            <div class="pt-4 border-t border-gray-100">
+              <div
+                class="flex items-center justify-between text-sm text-gray-600 mb-3"
+              >
+                <div class="flex items-center gap-4">
+                  <span class="flex items-center gap-1">
+                    ❤️ <span class="font-medium">89</span>
+                  </span>
+                  <span class="flex items-center gap-1">
+                    <svg
+                      class="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                      />
+                    </svg>
+                    <span class="font-medium">15 comentarios</span>
+                  </span>
+                </div>
+                <span class="flex items-center gap-1">
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                    />
+                  </svg>
+                  <span class="font-medium">234 vistas</span>
+                </span>
+              </div>
+
+              <div class="flex items-center gap-2 mb-3">
+                <div
+                  class="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-bold text-xs shrink-0"
+                >
+                  C
+                </div>
+                <div class="flex flex-col">
+                  <span class="text-xs text-gray-500">Publicado por:</span>
+                  <span class="text-sm font-medium text-gray-800"
+                    >Carlos Ramírez</span
+                  >
+                </div>
+              </div>
+
+              <div class="flex gap-2 w-full">
+                <button
+                  class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors duration-200"
+                >
+                  Ver discusión
+                </button>
+                <button
+                  class="bg-orange-500 hover:bg-orange-600 text-white py-2.5 px-3 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 flex items-center justify-center"
+                  title="Contactar"
+                >
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botón cargar más -->
+        <div class="text-center py-6">
+          <button
+            class="bg-white hover:bg-gray-50 text-gray-700 font-semibold px-8 py-3 rounded-lg border border-gray-300 transition shadow-sm hover:shadow-md"
+          >
+            Cargar más publicaciones
+          </button>
+        </div>
+      </div>
+
+      <!-- Columna lateral - Información del foro -->
+      <div class="lg:col-span-1 space-y-6">
+        <!-- Sobre el foro -->
+        <div
+          class="bg-white rounded-lg shadow-sm p-5 border border-gray-100 sticky top-24"
+        >
+          <h3 class="font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <svg
+              class="w-5 h-5 text-orange-500"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            Sobre este foro
+          </h3>
+          <p class="text-sm text-gray-600 mb-4">
+            Comunidad dedicada al rescate, adopción y cuidado de mascotas en
+            Arica y alrededores. Únete para ayudar a encontrar hogares para
+            animales necesitados.
+          </p>
+
+          <div class="space-y-3 mb-4">
+            <div class="flex items-center text-sm text-gray-600">
+              <svg
+                class="w-4 h-4 mr-2 text-gray-400"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"
+                />
+              </svg>
+              Creado el 15 Ago, 2024
+            </div>
+            <div class="flex items-center text-sm text-gray-600">
+              <svg
+                class="w-4 h-4 mr-2 text-gray-400"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              Administrador: Juan Pérez
+            </div>
+          </div>
+          <button
+            class="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2.5 px-4 rounded-lg transition shadow-sm hover:shadow-md"
+          >
+            Unirse al foro
+          </button>
+        </div>
+
+        <!-- Reglas del foro -->
+        <div class="bg-white rounded-lg shadow-sm p-5 border border-gray-100">
+          <h3 class="font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <svg
+              class="w-5 h-5 text-orange-500"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            Reglas del foro
+          </h3>
+          <ol class="space-y-2 text-sm text-gray-600">
+            <li class="flex gap-2">
+              <span class="font-semibold text-orange-600">1.</span>
+              <span>Trato respetuoso entre miembros</span>
+            </li>
+            <li class="flex gap-2">
+              <span class="font-semibold text-orange-600">2.</span>
+              <span>No spam ni publicidad no relacionada</span>
+            </li>
+            <li class="flex gap-2">
+              <span class="font-semibold text-orange-600">3.</span>
+              <span>Información verídica sobre mascotas</span>
+            </li>
+            <li class="flex gap-2">
+              <span class="font-semibold text-orange-600">4.</span>
+              <span>Reportar situaciones de maltrato animal</span>
+            </li>
+          </ol>
+        </div>
+
+        <!-- Miembros activos -->
+        <div class="bg-white rounded-lg shadow-sm p-5 border border-gray-100">
+          <h3 class="font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <svg
+              class="w-5 h-5 text-orange-500"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"
+              />
+            </svg>
+            Miembros activos
+          </h3>
+          <div class="space-y-3">
+            <div class="flex items-center gap-2">
+              <div
+                class="w-8 h-8 rounded-full bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center text-white font-bold text-xs"
+              >
+                M
+              </div>
+              <div class="flex-1">
+                <p class="text-sm font-medium text-gray-800">María González</p>
+                <p class="text-xs text-gray-500">Hace 10 min</p>
+              </div>
+              <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+            </div>
+            <div class="flex items-center gap-2">
+              <div
+                class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white font-bold text-xs"
+              >
+                C
+              </div>
+              <div class="flex-1">
+                <p class="text-sm font-medium text-gray-800">Carlos Ramírez</p>
+                <p class="text-xs text-gray-500">Hace 25 min</p>
+              </div>
+              <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+            </div>
+            <div class="flex items-center gap-2">
+              <div
+                class="w-8 h-8 rounded-full bg-gradient-to-br from-green-400 to-teal-500 flex items-center justify-center text-white font-bold text-xs"
+              >
+                A
+              </div>
+              <div class="flex-1">
+                <p class="text-sm font-medium text-gray-800">Ana Torres</p>
+                <p class="text-xs text-gray-500">Hace 1 hora</p>
+              </div>
+              <div class="w-2 h-2 bg-yellow-500 rounded-full"></div>
+            </div>
+          </div>
+          <button
+            class="w-full mt-4 text-sm text-orange-600 hover:text-orange-700 font-medium"
+          >
+            Ver todos los miembros →
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>

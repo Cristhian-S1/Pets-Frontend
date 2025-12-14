@@ -7,18 +7,42 @@ import { CrearForo, Foro, Foros } from "../interfaces/foro.interface";
   providedIn: "root",
 })
 export class foroService {
-    private apiUrl: string = "http://localhost:3000/pets/";
-    private http = inject(HttpClient);
+  private apiUrl: string = "http://localhost:3000/pets/";
+  private http = inject(HttpClient);
 
-    obtenerForos(): Observable<Foros>{
-        return this.http.get<Foros>(`${this.apiUrl}foros`);
-    }
+  obtenerForos(): Observable<Foros> {
+    return this.http.get<Foros>(`${this.apiUrl}foros`);
+  }
 
-    obtenerForo(idForo: number): Observable<Foro>{
-        return this.http.get<Foro>(`${this.apiUrl}foros/${idForo}`);
-    }
+  obtenerForo(idForo: number): Observable<Foro> {
+    return this.http.get<Foro>(`${this.apiUrl}foros/${idForo}`);
+  }
 
-    crearForo(nuevoForo: CrearForo): Observable<Foro>{
-        return this.http.post<Foro>(`${this.apiUrl}foros`, nuevoForo);
-    }
+  crearForo(nuevoForo: CrearForo): Observable<Foro> {
+    const token = localStorage.getItem("authToken");
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    });
+
+    return this.http.post<Foro>(`${this.apiUrl}foros`, nuevoForo, { headers });
+  }
+
+  /*
+        crearPublicacion(publicacion: CrearPublicacion): Observable<Respuesta<any>> {
+          const rutaEspecifica = `${this.ruta}/publicaciones/crear`;
+      
+          const token = localStorage.getItem("authToken");
+      
+          const headers = new HttpHeaders({
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          });
+      
+          return this.http.post<Respuesta<any>>(rutaEspecifica, publicacion, {
+            headers,
+          });
+        }
+    */
 }

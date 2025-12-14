@@ -1,82 +1,170 @@
 <div class="flex justify-center items-center py-10 bg-gray-50 min-h-screen">
   <div class="w-full max-w-2xl p-8 space-y-6 bg-white rounded-xl shadow-2xl">
-
     <div class="text-center">
       <h1 class="text-3xl font-extrabold text-gray-900">Crear Nuevo Foro</h1>
-      <p class="mt-2 text-sm text-gray-600">Comparte tu pregunta o tema con la comunidad.</p>
+      <p class="mt-2 text-sm text-gray-600">
+        Comparte tu pregunta o tema con la comunidad.
+      </p>
     </div>
 
     @if (errorMessage) {
-      <div class="p-4 mb-4 text-sm text-red-800 bg-red-100 rounded-lg" role="alert">
-        {{ errorMessage }}
-      </div>
-    }
-
-    @if (successMessage) {
-      <div class="p-4 mb-4 text-sm text-green-800 bg-green-100 rounded-lg" role="alert">
-        {{ successMessage }}
-      </div>
+    <div
+      class="p-4 mb-4 text-sm text-red-800 bg-red-100 rounded-lg"
+      role="alert"
+    >
+      {{ errorMessage }}
+    </div>
+    } @if (successMessage) {
+    <div
+      class="p-4 mb-4 text-sm text-green-800 bg-green-100 rounded-lg"
+      role="alert"
+    >
+      {{ successMessage }}
+    </div>
     }
 
     <form [formGroup]="foroForm" (ngSubmit)="onSubmit()" class="space-y-6">
-
       <div>
-        <label for="titulo" class="block text-sm font-medium text-gray-700">Título del Foro</label>
-        <input 
-          id="titulo" 
-          type="text" 
+        <label for="titulo" class="block text-sm font-medium text-gray-700"
+          >Título del Foro</label
+        >
+        <input
+          id="titulo"
+          type="text"
           formControlName="titulo"
           placeholder="Ej: Dudas sobre adopción de Schnauzers"
           class="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-amber-500 focus:border-amber-500 sm:text-sm"
           [class.border-red-500]="titulo?.invalid && titulo?.touched"
         />
-        
+
         @if (titulo?.invalid && titulo?.touched) {
-          <div class="mt-1 text-xs text-red-500 space-y-1">
-            @if (titulo?.errors?.['required']) {
-              <p>El título es obligatorio.</p>
-            } @if (titulo?.errors?.['minlength']) {
-              <p>Mínimo 5 caracteres.</p>
-            } @if (titulo?.errors?.['maxlength']) {
-              <p>Máximo 126 caracteres.</p>
-            }
-          </div>
+        <div class="mt-1 text-xs text-red-500 space-y-1">
+          @if (titulo?.errors?.['required']) {
+          <p>El título es obligatorio.</p>
+          } @if (titulo?.errors?.['minlength']) {
+          <p>Mínimo 5 caracteres.</p>
+          } @if (titulo?.errors?.['maxlength']) {
+          <p>Máximo 126 caracteres.</p>
+          }
+        </div>
         }
       </div>
 
       <div>
-        <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción / Contenido</label>
-        <textarea 
-          id="descripcion" 
+        <label for="descripcion" class="block text-sm font-medium text-gray-700"
+          >Descripción / Contenido</label
+        >
+        <textarea
+          id="descripcion"
           formControlName="descripcion"
           rows="5"
           placeholder="Describe detalladamente el tema de tu foro..."
           class="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-amber-500 focus:border-amber-500 sm:text-sm resize-none"
           [class.border-red-500]="descripcion?.invalid && descripcion?.touched"
         ></textarea>
-        
+
         @if (descripcion?.invalid && descripcion?.touched) {
-          <div class="mt-1 text-xs text-red-500 space-y-1">
-            @if (descripcion?.errors?.['required']) {
-              <p>La descripción es obligatoria.</p>
-            } @if (descripcion?.errors?.['minlength']) {
-              <p>Mínimo 10 caracteres.</p>
-            } @if (descripcion?.errors?.['maxlength']) {
-              <p>Máximo 254 caracteres.</p>
-            }
-          </div>
+        <div class="mt-1 text-xs text-red-500 space-y-1">
+          @if (descripcion?.errors?.['required']) {
+          <p>La descripción es obligatoria.</p>
+          } @if (descripcion?.errors?.['minlength']) {
+          <p>Mínimo 10 caracteres.</p>
+          } @if (descripcion?.errors?.['maxlength']) {
+          <p>Máximo 254 caracteres.</p>
+          }
+        </div>
+        }
+      </div>
+
+      <div>
+        <label for="icono" class="block text-sm font-medium text-gray-700"
+          >URL del Icono (opcional)</label
+        >
+        <input
+          id="icono"
+          type="url"
+          formControlName="icono"
+          placeholder="https://ejemplo.com/icono.png"
+          class="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:ring-amber-500 focus:border-amber-500 sm:text-sm"
+          [class.border-red-500]="icono?.invalid && icono?.touched"
+        />
+        <p class="mt-1 text-xs text-gray-500">
+          Agrega una URL de una imagen para representar tu foro.
+        </p>
+
+        @if (icono?.invalid && icono?.touched) {
+        <div class="mt-1 text-xs text-red-500 space-y-1">
+          @if (icono?.errors?.['pattern']) {
+          <p>Debe ser una URL válida.</p>
+          } @if (icono?.errors?.['maxlength']) {
+          <p>Máximo 512 caracteres.</p>
+          }
+        </div>
+        } @if (icono?.value && icono?.valid) {
+        <div class="mt-3 flex items-center space-x-3">
+          <span class="text-xs text-gray-600">Vista previa:</span>
+          <img
+            [src]="icono?.value"
+            alt="Icono del foro"
+            class="w-12 h-12 rounded-full object-cover border-2 border-gray-300"
+            (error)="onImageError($event)"
+          />
+        </div>
+        }
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2"
+          >Visibilidad del Foro</label
+        >
+        <div class="flex items-center space-x-6">
+          <label class="flex items-center cursor-pointer">
+            <input
+              type="radio"
+              formControlName="visible"
+              [value]="true"
+              class="w-4 h-4 text-amber-600 border-gray-300 focus:ring-amber-500"
+            />
+            <span class="ml-2 text-sm text-gray-700">
+              <span class="font-semibold">Público</span>
+              <span class="block text-xs text-gray-500"
+                >Visible para todos los usuarios</span
+              >
+            </span>
+          </label>
+
+          <label class="flex items-center cursor-pointer">
+            <input
+              type="radio"
+              formControlName="visible"
+              [value]="false"
+              class="w-4 h-4 text-amber-600 border-gray-300 focus:ring-amber-500"
+            />
+            <span class="ml-2 text-sm text-gray-700">
+              <span class="font-semibold">Privado</span>
+              <span class="block text-xs text-gray-500"
+                >Solo para integrantes invitados</span
+              >
+            </span>
+          </label>
+        </div>
+
+        @if (visible?.invalid && visible?.touched) {
+        <div class="mt-1 text-xs text-red-500">
+          <p>Debes seleccionar la visibilidad del foro.</p>
+        </div>
         }
       </div>
 
       <div class="flex justify-end space-x-4 pt-4">
-        <button 
+        <button
           type="button"
           (click)="volver()"
           class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 border border-transparent rounded-md hover:bg-gray-300 transition"
         >
           Cancelar
         </button>
-        <button 
+        <button
           type="submit"
           [disabled]="foroForm.invalid"
           class="px-4 py-2 text-sm font-medium text-white bg-orange-600 rounded-md shadow-sm hover:bg-orange-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
@@ -84,7 +172,6 @@
           Publicar Foro
         </button>
       </div>
-
     </form>
   </div>
 </div>

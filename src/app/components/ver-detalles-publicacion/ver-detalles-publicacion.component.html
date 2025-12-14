@@ -1,66 +1,161 @@
+<app-header></app-header>
+
+
 <div class="container" *ngIf="detalles">
 
-  <!-- ====== TÍTULO ====== -->
-  <h1 class="titulo">{{ detalles.pu_titulo }}</h1>
+  <!-- ================= HEADER ================= -->
+  <div class="header">
+    <button mat-icon-button color="primary" (click)="volverAtras()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
 
-  <!-- ====== INFO DEL USUARIO ====== -->
-  <div class="autor-card">
-    <div>
+    <h1 class="titulo">{{ detalles.pu_titulo }}</h1>
+  </div>
+
+  <!-- ================= AUTOR ================= -->
+  <mat-card class="autor-card">
+    <mat-card-content>
       <p class="label">Publicación creada por</p>
       <h2 class="autor">{{ nombre }}</h2>
       <p class="contacto">
-        Contacto: <span>{{ contacto }}</span>
+        <mat-icon>phone</mat-icon>
+        {{ contacto }}
       </p>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- ================= LAYOUT ================= -->
+  <div class="layout">
+
+    <!-- ===== IMÁGENES ===== -->
+    <div class="imagenes">
+
+      <mat-card *ngIf="detalles.pu_image" class="imagen-principal">
+        <img mat-card-image [src]="detalles.pu_image" />
+      </mat-card>
+
+      <mat-card *ngIf="detalles.imagenes?.length > 0" class="carousel-card">
+        <div class="carousel">
+          <button mat-icon-button (click)="prev()">
+            <mat-icon>chevron_left</mat-icon>
+          </button>
+
+          <img [src]="detalles.imagenes[currentIndex].pui_url" class="carousel-img" />
+
+          <button mat-icon-button (click)="next()">
+            <mat-icon>chevron_right</mat-icon>
+          </button>
+        </div>
+
+        <div class="thumbnails">
+          <img *ngFor="let img of detalles.imagenes; let i = index" [src]="img.pui_url"
+            [class.active]="i === currentIndex" (click)="goTo(i)" />
+        </div>
+      </mat-card>
+
+    </div>
+
+    <!-- ===== DETALLES ===== -->
+    <div class="detalles">
+      <mat-card class="detalle-card">
+        <mat-card-content>
+
+          <p class="descripcion">{{ detalles.pu_descripcion }}</p>
+
+          <p>
+            <mat-icon>place</mat-icon>
+            <strong>Ubicación:</strong> {{ detalles.pu_ubicacion }}
+          </p>
+
+          <p>
+            <mat-icon>event</mat-icon>
+            <strong>Fecha:</strong> {{ formatearFecha(detalles.pu_fecha) }}
+          </p>
+
+          <p>
+            <mat-icon>info</mat-icon>
+            <strong>Estado:</strong>
+            <span class="estado" [class.encontrado]="detalles.pu_estado">
+              {{ detalles.pu_estado ? 'Encontrado' : 'Perdido' }}
+            </span>
+          </p>
+
+          <mat-chip-listbox>
+            <mat-chip *ngFor="let tag of detalles.etiquetas">
+              {{ tag.et_nombre }}
+            </mat-chip>
+          </mat-chip-listbox>
+
+          <button mat-raised-button color="primary" class="btn-whatsapp" (click)="contactar(detalles)">
+            <mat-icon>chat</mat-icon>
+            Contactar por WhatsApp
+          </button>
+
+        </mat-card-content>
+      </mat-card>
     </div>
   </div>
 
-  <!-- ====== IMAGEN PRINCIPAL (pu_image) ====== -->
-  <div class="main-cover-wrapper" *ngIf="detalles.pu_image">
-    <img class="main-cover" [src]="detalles.pu_image" alt="Imagen principal" />
-  </div>
+  <!-- ================= AGREGAR COMENTARIO ================= -->
+  <mat-card class="comentario-nuevo">
+    <mat-card-title>Agregar comentario</mat-card-title>
 
-  <!-- ====== CARRUSEL DE IMÁGENES ADICIONALES ====== -->
-  <div class="carousel-wrapper" *ngIf="detalles.imagenes?.length > 0">
-    <button class="nav prev" (click)="prev()">&#10094;</button>
+    <mat-form-field appearance="outline" class="full-width">
+      <textarea matInput rows="3" [(ngModel)]="nuevoComentario" placeholder="  Escribe tu comentario..."></textarea>
+    </mat-form-field>
 
-    <div class="carousel">
-      <img [src]="detalles.imagenes[currentIndex].pui_url" alt="Imagen" class="main-img" />
-    </div>
-
-    <button class="nav next" (click)="next()">&#10095;</button>
-  </div>
-
-  <!-- MINIATURAS -->
-  <div class="thumbnails" *ngIf="detalles.imagenes?.length > 0">
-    <img *ngFor="let img of detalles.imagenes; let i = index" [src]="img.pui_url" [class.active]="i === currentIndex"
-      (click)="goTo(i)" />
-  </div>
-
-  <!-- ====== DESCRIPCIÓN ====== -->
-  <div class="card">
-    <p class="descripcion">{{ detalles.pu_descripcion }}</p>
-
-    <p class="item"><strong>Ubicación:</strong> {{ detalles.pu_ubicacion }}</p>
-
-    <p class="item"><strong>Fecha:</strong> {{ formatearFecha(detalles.pu_fecha) }}</p>
-
-    <p class="item">
-      <strong>Estado:</strong>
-      <span [class.encontrado]="detalles.pu_estado" class="estado">
-        {{ detalles.pu_estado ? 'Encontrado' : 'Perdido' }}
-      </span>
-    </p>
-
-    <!-- Etiquetas -->
-    <div class="tags">
-      <span *ngFor="let tag of detalles.etiquetas" class="tag">
-        {{ tag.et_nombre }}
-      </span>
-    </div>
-
-    <!-- Botón WhatsApp -->
-    <button class="btn-whatsapp" (click)="contactar(detalles)">
-      Contactar por WhatsApp
+    <button mat-raised-button color="accent" (click)="enviarComentario()">
+      Publicar comentario
     </button>
+  </mat-card>
+
+  <!-- ================= LISTA COMENTARIOS ================= -->
+  <div class="comentarios-wrapper">
+    <h2 class="comentarios-titulo">
+      Comentarios ({{ detalles.comentarios?.length || 0 }})
+    </h2>
+
+    <mat-card class="comentario-card" *ngFor="let c of detalles.comentarios.slice().reverse()">
+      <mat-card-header>
+        <div mat-card-avatar class="avatar">
+          {{ c.us_nombre?.charAt(0) || 'U' }}
+        </div>
+
+        <mat-card-title>
+          {{ c.us_nombre }} {{ c.us_apellido }}
+        </mat-card-title>
+
+        <mat-card-subtitle>
+          {{ formatearFecha(c.cm_fecha) }}
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <!-- ===== CONTACTOS ARRIBA ===== -->
+        <div class="comentario-contactos">
+          <a mat-button color="primary" [href]="'https://wa.me/' + c.us_contacto" target="_blank">
+            <mat-icon>phone</mat-icon>
+            {{ c.us_contacto }}
+          </a>
+          <a mat-button color="primary" [href]="'mailto:' + c.us_email">
+            <mat-icon>mail</mat-icon>
+            {{ c.us_email }}
+          </a>
+
+        </div>
+
+        <!-- ===== TEXTO DEL COMENTARIO ===== -->
+        <p class="comentario-texto">
+          {{ c.cm_contenido }}
+        </p>
+
+      </mat-card-content>
+    </mat-card>
+
+
+    <p class="sin-comentarios" *ngIf="!detalles.comentarios?.length">
+      Aún no hay comentarios.
+    </p>
   </div>
 </div>

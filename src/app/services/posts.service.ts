@@ -18,4 +18,27 @@ export class PostsService {
   obtenerDetalles(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/verDetalles/${id}`);
   }
+
+  crearComentario(pu_id: number, contenido: string) {
+    const token = localStorage.getItem("authToken");
+
+    return this.http.post(
+      `${this.apiUrl}/comentarios`,
+      {
+        pu_id,
+        cm_contenido: contenido,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  }
+
+
+
+
 }
+
+

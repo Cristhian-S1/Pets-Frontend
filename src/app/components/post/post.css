@@ -1,0 +1,21 @@
+/* Estado base del corazón: Borde gris, fondo transparente */
+.heart-icon {
+  fill: transparent;
+  stroke: #9ca3af; /* gray-400 */
+  transition: all 0.3s ease;
+}
+
+/* Estado LIKEADO: Relleno rojo, borde rojo y animación */
+.heart-icon.liked {
+  fill: #ef4444;   /* red-500 */
+  stroke: #ef4444;
+  animation: heart-bounce 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* La magia del rebote */
+@keyframes heart-bounce {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.35); }
+  70% { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}

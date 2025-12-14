@@ -18,4 +18,7 @@ export class PostsService {
   obtenerDetalles(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/verDetalles/${id}`);
   }
+  darLike(pu_id: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/publicaciones/reaccionar`, {pu_id});
+  }
 }

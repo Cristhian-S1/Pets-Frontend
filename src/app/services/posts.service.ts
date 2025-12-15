@@ -43,4 +43,8 @@ export class PostsService {
 
     return this.http.put(`${this.apiUrl}/my-posts/${id}`, body, { headers });
   }
+
+  darLike(pu_id: number): Observable<any> {
+      return this.http.post(`${this.apiUrl}/publicaciones/reaccionar`, {pu_id});
+  }
 }

@@ -14,6 +14,9 @@ export interface Publicacion {
   us_nombre_completo: string;
   us_contacto: string;
   etiquetas?: Etiqueta[];
+  total_likes: number;
+  dio_like: boolean;
+  procesando?: boolean;
 }
 
 export interface PublicacionCrear {

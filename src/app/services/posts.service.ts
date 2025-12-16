@@ -47,6 +47,24 @@ export class PostsService {
   darLike(pu_id: number): Observable<any> {
     return this.http.post(`${this.apiUrl}/publicaciones/reaccionar`, { pu_id });
   }
+
+
+  crearComentario(pu_id: number, contenido: string) {
+    const token = localStorage.getItem("authToken");
+
+    return this.http.post(
+      `${this.apiUrl}/comentarios`,
+      {
+        pu_id,
+        cm_contenido: contenido,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  }
 }
 
 

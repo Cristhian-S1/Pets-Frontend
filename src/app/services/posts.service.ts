@@ -45,6 +45,8 @@ export class PostsService {
   }
 
   darLike(pu_id: number): Observable<any> {
-      return this.http.post(`${this.apiUrl}/publicaciones/reaccionar`, {pu_id});
+    return this.http.post(`${this.apiUrl}/publicaciones/reaccionar`, { pu_id });
   }
 }
+
+

@@ -52,6 +52,8 @@ export class LoginComponent {
         next: (response) => {
           const token = response.datos.token;
           localStorage.setItem("authToken", token);
+          console.log("TOKEN LOGIN:", response.datos.token);
+
           console.log("Login exitoso", response);
           this.router.navigate(["/home"]);
         },

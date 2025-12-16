@@ -4,6 +4,13 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 ## Development server
 
+
+Instalar Angular material:
+
+```bash
+ng add @angular/material
+
+```
 To start a local development server, run:
 
 ```bash

@@ -28,21 +28,4 @@ export class foroService {
 
     return this.http.post<Foro>(`${this.apiUrl}foros`, nuevoForo, { headers });
   }
-
-  /*
-        crearPublicacion(publicacion: CrearPublicacion): Observable<Respuesta<any>> {
-          const rutaEspecifica = `${this.ruta}/publicaciones/crear`;
-      
-          const token = localStorage.getItem("authToken");
-      
-          const headers = new HttpHeaders({
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          });
-      
-          return this.http.post<Respuesta<any>>(rutaEspecifica, publicacion, {
-            headers,
-          });
-        }
-    */
 }

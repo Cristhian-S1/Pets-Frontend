@@ -106,7 +106,7 @@ export class CrearForoComponent {
 
         setTimeout(() => {
           this.router.navigate(["/foros"]);
-        }, 1500);
+        }, 500);
       },
       error: (err) => {
         this.errorMessage =
@@ -114,6 +114,7 @@ export class CrearForoComponent {
         console.error("Error del servidor:", err);
       },
     });
+    // this.router.navigate(["/foros"]);
   }
 
   volver(): void {

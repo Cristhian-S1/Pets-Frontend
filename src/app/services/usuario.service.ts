@@ -18,14 +18,22 @@ export class UsuarioService {
   }
 
   // Obtener perfil del usuario
-  public obtenerPerfil(): Observable<{ cod: number; msj: string; datos: Usuario }> {
+  public obtenerPerfil(): Observable<{
+    cod: number;
+    msj: string;
+    datos: Usuario;
+  }> {
+    console.log(this.getHeaders());
+
     return this.http.get<{ cod: number; msj: string; datos: Usuario }>(
       `${this.ruta}/perfil`,
       { headers: this.getHeaders() }
     );
   }
 
-  public actualizarPerfil(usuario: Partial<Usuario>): Observable<{ cod: number; msj: string; datos: Usuario }> {
+  public actualizarPerfil(
+    usuario: Partial<Usuario>
+  ): Observable<{ cod: number; msj: string; datos: Usuario }> {
     return this.http.put<{ cod: number; msj: string; datos: Usuario }>(
       `${this.ruta}/perfil`,
       usuario,

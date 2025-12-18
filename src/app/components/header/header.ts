@@ -23,13 +23,19 @@ export class Header implements OnInit {
     const userRole = localStorage.getItem("role");
     this.userRole = userRole ? userRole : "user";
   }
-
+  goProfile() {
+    this.router.navigate(["/usuario/perfil"]);
+  }
   viewPosts() {
-    this.router.navigate(["/publicaciones"]);
+    this.router.navigate(["/usuario/mis-publicaciones"]);
   }
 
   createPost() {
     this.router.navigate(["/publicaciones/crear"]);
+  }
+
+  viewForos(){
+    this.router.navigate(["/foros"]);
   }
 
   login() {

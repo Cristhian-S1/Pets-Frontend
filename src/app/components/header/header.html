@@ -3,7 +3,7 @@
         <div class="flex items-center justify-between">
 
             <!-- Logo y título (Click lleva al home) -->
-            <div class="flex items-center space-x-3 cursor-pointer" routerLink="/">
+            <div class="flex items-center space-x-3 cursor-pointer" routerLink="/home">
                 <div class="bg-gradient-to-br from-orange-400 to-orange-600 p-2 rounded-xl">
                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -11,7 +11,7 @@
                     </svg>
                 </div>
                 <div>
-                    <h1 class="text-2xl font-bold text-gray-800">PetFinder</h1>
+                    <h1 class="text-2xl font-bold text-gray-800">PetSociety</h1>
                     <p class="text-xs text-gray-500">Encuentra a tu mejor amigo</p>
                 </div>
             </div>
@@ -37,7 +37,21 @@
                     </svg>
                     <span class="font-medium">Crear Publicación</span>
                 </button>
+                <!-- Ver foros -->
+                <button (click)="viewForos()" routerLinkActive="bg-orange-100 text-orange-600"
+                    [routerLinkActiveOptions]="{exact: false}"
+                    class="flex items-center space-x-2 px-4 py-2 rounded-lg transition text-gray-600 hover:bg-gray-50 hover:text-orange-600">
+                    <span class="font-medium">Foros</span>
+                </button>
                 <div class="flex items-center gap-3 pl-4 border-l border-gray-200">
+                    <button (click)="goProfile()"
+                        class="bg-gray-100 hover:bg-blue-50 text-gray-600 hover:text-blue-500 p-2 rounded-full transition-colors"
+                        title="Ver Perfil">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5.121 17.804A8 8 0 1118.87 6.196M12 14a4 4 0 100-8 4 4 0 000 8zm0 0c-2.21 0-4 1.79-4 4v1h8v-1c0-2.21-1.79-4-4-4z" />
+                        </svg>
+                    </button>
                     <button (click)="logout()"
                         class="bg-gray-100 hover:bg-red-50 text-gray-600 hover:text-red-500 p-2 rounded-full transition-colors"
                         title="Cerrar Sesión">

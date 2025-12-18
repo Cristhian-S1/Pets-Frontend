@@ -15,7 +15,7 @@ import { AuthService } from "../../../services/auth.service";
   // Nota: Deberías usar 'template' en lugar de 'templateUrl' si usas Standalone,
   // pero mantendremos tu estructura actual. Asumiendo 'standalone: true'
   templateUrl: "./login.html",
-  styleUrls: ["./login.css"], // Corregido a styleUrls
+  styleUrls: ["./login.css"], 
 })
 export class LoginComponent {
   // Usamos '!' ya que la inicialización puede ocurrir en el constructor o ngOnInit
@@ -29,7 +29,7 @@ export class LoginComponent {
   private fb: FormBuilder = inject(FormBuilder);
   private router: Router = inject(Router);
 
-  // Inicialización del FormGroup en el constructor (Mejor práctica)
+  // Inicialización del FormGroup en el constructor 
   constructor() {
     this.loginForm = this.fb.group({
       email: ["", [Validators.required, Validators.email]],
@@ -52,6 +52,8 @@ export class LoginComponent {
         next: (response) => {
           const token = response.datos.token;
           localStorage.setItem("authToken", token);
+          console.log("TOKEN LOGIN:", response.datos.token);
+
           console.log("Login exitoso", response);
           this.router.navigate(["/home"]);
         },

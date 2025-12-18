@@ -10,7 +10,7 @@ import { CommonModule } from "@angular/common";
   styleUrl: "./post.css",
 })
 export class Post {
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   @Input() post: Publicacion | undefined;
 

@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Post } from "../components/post/post";
 import { Observable } from "rxjs";
@@ -18,4 +18,53 @@ export class PostsService {
   obtenerDetalles(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/verDetalles/${id}`);
   }
+
+  getPostsByUser(): Observable<any> {
+    const token = localStorage.getItem("authToken");
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    });
+
+    return this.http.get(`${this.apiUrl}/my-posts`, { headers });
+  }
+
+  cambiarEstadoPublicacion(id: number, estado: boolean): Observable<any> {
+    const token = localStorage.getItem("authToken");
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    });
+
+    // En el body solo enviamos el estado, el ID va en la URL
+    const body = { pu_estado: estado };
+
+    return this.http.put(`${this.apiUrl}/my-posts/${id}`, body, { headers });
+  }
+
+  darLike(pu_id: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/publicaciones/reaccionar`, { pu_id });
+  }
+
+
+  crearComentario(pu_id: number, contenido: string) {
+    const token = localStorage.getItem("authToken");
+
+    return this.http.post(
+      `${this.apiUrl}/comentarios`,
+      {
+        pu_id,
+        cm_contenido: contenido,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  }
 }
+
+

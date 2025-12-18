@@ -1,9 +1,10 @@
 import { Component, inject, OnInit } from "@angular/core";
 import { Router, RouterLinkActive } from "@angular/router";
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: "app-header",
-  imports: [RouterLinkActive],
+  imports: [RouterLinkActive, RouterModule],
   templateUrl: "./header.html",
   styleUrl: "./header.css",
 })
@@ -34,7 +35,7 @@ export class Header implements OnInit {
     this.router.navigate(["/publicaciones/crear"]);
   }
 
-  viewForos(){
+  viewForos() {
     this.router.navigate(["/foros"]);
   }
 
